@@ -1,0 +1,25 @@
+version: "3"
+services:
+  cantaloupe:
+    image: atnu-cantaloupe
+    build:
+      context: ./
+      dockerfile: src/cantaloupe/Dockerfile
+    ports:
+      - "8182:8182"
+    networks:
+      - public
+  minio:
+    image: minio/minio
+    ports:
+     - "9000:9000"
+    environment:
+      - "MINIO_ACCESS_KEY=minio"
+      - "MINIO_SECRET_KEY=minio-1234"
+    networks:
+     - public
+    volumes:
+     - ./data:/data
+    command: server /data
+networks:
+  public:
