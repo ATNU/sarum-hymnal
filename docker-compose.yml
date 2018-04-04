@@ -7,6 +7,8 @@ services:
       dockerfile: src/cantaloupe/Dockerfile
     ports:
       - "8182:8182"
+    environment:
+      - "AWS_DEFAULT_REGION=eu-west-1"
     networks:
       - public
   minio:
