@@ -21,7 +21,7 @@ services:
     networks:
      - public
     volumes:
-     - ./data:/data
+     - ./data/minio:/data
     command: server /data
 networks:
   public:
