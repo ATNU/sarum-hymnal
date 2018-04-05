@@ -23,7 +23,7 @@ var all = {
   clientPort: process.env.CLIENT_PORT || 3000,
 
     // Server port
-  port: process.env.PORT || 9000,
+  port: process.env.PORT || 8000,
 
     // Server IP
   ip: process.env.IP || '0.0.0.0',
