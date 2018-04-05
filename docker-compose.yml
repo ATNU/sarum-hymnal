@@ -23,5 +23,10 @@ services:
     volumes:
      - ./data/minio:/data
     command: server /data
+  create-minio-buckets:
+    image: alpine
+    volumes:
+     - ./data/minio:/data/
+    command: ["sh", "-c", "[ -d /data/atnu-images ] || mkdir -p /data/atnu-images"]
 networks:
   public:
