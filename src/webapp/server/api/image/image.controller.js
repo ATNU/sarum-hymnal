@@ -1,17 +1,17 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/hymns              ->  index
- * POST    /api/hymns              ->  create
- * GET     /api/hymns/:id          ->  show
- * PUT     /api/hymns/:id          ->  upsert
- * PATCH   /api/hymns/:id          ->  patch
- * DELETE  /api/hymns/:id          ->  destroy
+ * GET     /api/images              ->  index
+ * POST    /api/images              ->  create
+ * GET     /api/images/:id          ->  show
+ * PUT     /api/images/:id          ->  upsert
+ * PATCH   /api/images/:id          ->  patch
+ * DELETE  /api/images/:id          ->  destroy
  */
 
 'use strict';
 
 import { applyPatch } from 'fast-json-patch';
-import {Hymn} from '../../sqldb';
+import {Image} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -61,16 +61,16 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Hymns
+// Gets a list of Images
 export function index(req, res) {
-  return Hymn.findAll()
+  return Image.findAll()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Hymn from the DB
+// Gets a single Image from the DB
 export function show(req, res) {
-  return Hymn.find({
+  return Image.find({
     where: {
       _id: req.params.id
     }
@@ -80,34 +80,20 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
-// Gets a images for a single Hymn from the DB
-export function showImages(req, res) {
-  return Hymn.find({
-    where: {
-      _id: req.params.id
-    }
-  }).then((res) => {
-    return res.getImages()
-  })
-    .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
-    .catch(handleError(res));
-}
-
-// Creates a new Hymn in the DB
+// Creates a new Image in the DB
 export function create(req, res) {
-  return Hymn.create(req.body)
+  return Image.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Upserts the given Hymn in the DB at the specified ID
+// Upserts the given Image in the DB at the specified ID
 export function upsert(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
 
-  return Hymn.upsert(req.body, {
+  return Image.upsert(req.body, {
     where: {
       _id: req.params.id
     }
@@ -116,12 +102,12 @@ export function upsert(req, res) {
     .catch(handleError(res));
 }
 
-// Updates an existing Hymn in the DB
+// Updates an existing Image in the DB
 export function patch(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Hymn.find({
+  return Image.find({
     where: {
       _id: req.params.id
     }
@@ -132,9 +118,9 @@ export function patch(req, res) {
     .catch(handleError(res));
 }
 
-// Deletes a Hymn from the DB
+// Deletes a Image from the DB
 export function destroy(req, res) {
-  return Hymn.find({
+  return Image.find({
     where: {
       _id: req.params.id
     }

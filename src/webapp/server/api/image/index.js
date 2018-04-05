@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./hymn.controller');
+var controller = require('./image.controller');
 
 var router = express.Router();
 
@@ -11,7 +11,5 @@ router.post('/', controller.create);
 router.put('/:id', controller.upsert);
 router.patch('/:id', controller.patch);
 router.delete('/:id', controller.destroy);
-
-router.get('/:id/images', controller.showImages);
 
 module.exports = router;

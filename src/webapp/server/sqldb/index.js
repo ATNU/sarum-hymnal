@@ -14,6 +14,10 @@ var db = {
 };
 
 // Insert models below
-db.Thing = db.sequelize.import('../api/thing/thing.model');
+db.Hymn = db.sequelize.import('../api/hymn/hymn.model');
+db.Image = db.sequelize.import('../api/image/image.model');
+
+db.Hymn.belongsToMany(db.Image, {through: 'hymn_images'});
+db.Image.belongsToMany(db.Hymn, {through: 'hymn_images'});
 
 module.exports = db;

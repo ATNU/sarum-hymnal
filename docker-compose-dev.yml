@@ -36,10 +36,23 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    networks:
+      - public
   create-minio-buckets:
     image: alpine
     volumes:
      - ./data/minio:/data/
     command: ["sh", "-c", "[ -d /data/atnu-images ] || mkdir -p /data/atnu-images"]
+  webapp:
+    image: node:8
+    volumes:
+      - "./src/webapp/:/usr/local/app"
+    command: "tail -f /dev/null"
+    ports:
+      - "8000:8000"
+      - "3000:3000"
+    networks:
+      - public
+
 networks:
   public:

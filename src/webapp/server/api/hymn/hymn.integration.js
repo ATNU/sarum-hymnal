@@ -3,38 +3,38 @@
 var app = require('../..');
 import request from 'supertest';
 
-var newThing;
+var newHymn;
 
-describe('Thing API:', function() {
-  describe('GET /api/things', function() {
-    var things;
+describe('Hymn API:', function() {
+  describe('GET /api/hymns', function() {
+    var hymns;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things')
+        .get('/api/hymns')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if(err) {
             return done(err);
           }
-          things = res.body;
+          hymns = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      expect(things).to.be.instanceOf(Array);
+      expect(hymns).to.be.instanceOf(Array);
     });
   });
 
-  describe('POST /api/things', function() {
+  describe('POST /api/hymns', function() {
     beforeEach(function(done) {
       request(app)
-        .post('/api/things')
+        .post('/api/hymns')
         .send({
-          name: 'New Thing',
-          info: 'This is the brand new thing!!!'
+          name: 'New Hymn',
+          info: 'This is the brand new hymn!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -42,53 +42,53 @@ describe('Thing API:', function() {
           if(err) {
             return done(err);
           }
-          newThing = res.body;
+          newHymn = res.body;
           done();
         });
     });
 
-    it('should respond with the newly created thing', function() {
-      expect(newThing.name).to.equal('New Thing');
-      expect(newThing.info).to.equal('This is the brand new thing!!!');
+    it('should respond with the newly created hymn', function() {
+      expect(newHymn.name).to.equal('New Hymn');
+      expect(newHymn.info).to.equal('This is the brand new hymn!!!');
     });
   });
 
-  describe('GET /api/things/:id', function() {
-    var thing;
+  describe('GET /api/hymns/:id', function() {
+    var hymn;
 
     beforeEach(function(done) {
       request(app)
-        .get(`/api/things/${newThing._id}`)
+        .get(`/api/hymns/${newHymn._id}`)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if(err) {
             return done(err);
           }
-          thing = res.body;
+          hymn = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      thing = {};
+      hymn = {};
     });
 
-    it('should respond with the requested thing', function() {
-      expect(thing.name).to.equal('New Thing');
-      expect(thing.info).to.equal('This is the brand new thing!!!');
+    it('should respond with the requested hymn', function() {
+      expect(hymn.name).to.equal('New Hymn');
+      expect(hymn.info).to.equal('This is the brand new hymn!!!');
     });
   });
 
-  describe('PUT /api/things/:id', function() {
-    var updatedThing;
+  describe('PUT /api/hymns/:id', function() {
+    var updatedHymn;
 
     beforeEach(function(done) {
       request(app)
-        .put(`/api/things/${newThing._id}`)
+        .put(`/api/hymns/${newHymn._id}`)
         .send({
-          name: 'Updated Thing',
-          info: 'This is the updated thing!!!'
+          name: 'Updated Hymn',
+          info: 'This is the updated hymn!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -96,48 +96,48 @@ describe('Thing API:', function() {
           if(err) {
             return done(err);
           }
-          updatedThing = res.body;
+          updatedHymn = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      updatedThing = {};
+      updatedHymn = {};
     });
 
-    it('should respond with the updated thing', function() {
-      expect(updatedThing.name).to.equal('Updated Thing');
-      expect(updatedThing.info).to.equal('This is the updated thing!!!');
+    it('should respond with the updated hymn', function() {
+      expect(updatedHymn.name).to.equal('Updated Hymn');
+      expect(updatedHymn.info).to.equal('This is the updated hymn!!!');
     });
 
-    it('should respond with the updated thing on a subsequent GET', function(done) {
+    it('should respond with the updated hymn on a subsequent GET', function(done) {
       request(app)
-        .get(`/api/things/${newThing._id}`)
+        .get(`/api/hymns/${newHymn._id}`)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if(err) {
             return done(err);
           }
-          let thing = res.body;
+          let hymn = res.body;
 
-          expect(thing.name).to.equal('Updated Thing');
-          expect(thing.info).to.equal('This is the updated thing!!!');
+          expect(hymn.name).to.equal('Updated Hymn');
+          expect(hymn.info).to.equal('This is the updated hymn!!!');
 
           done();
         });
     });
   });
 
-  describe('PATCH /api/things/:id', function() {
-    var patchedThing;
+  describe('PATCH /api/hymns/:id', function() {
+    var patchedHymn;
 
     beforeEach(function(done) {
       request(app)
-        .patch(`/api/things/${newThing._id}`)
+        .patch(`/api/hymns/${newHymn._id}`)
         .send([
-          { op: 'replace', path: '/name', value: 'Patched Thing' },
-          { op: 'replace', path: '/info', value: 'This is the patched thing!!!' }
+          { op: 'replace', path: '/name', value: 'Patched Hymn' },
+          { op: 'replace', path: '/info', value: 'This is the patched hymn!!!' }
         ])
         .expect(200)
         .expect('Content-Type', /json/)
@@ -145,25 +145,25 @@ describe('Thing API:', function() {
           if(err) {
             return done(err);
           }
-          patchedThing = res.body;
+          patchedHymn = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      patchedThing = {};
+      patchedHymn = {};
     });
 
-    it('should respond with the patched thing', function() {
-      expect(patchedThing.name).to.equal('Patched Thing');
-      expect(patchedThing.info).to.equal('This is the patched thing!!!');
+    it('should respond with the patched hymn', function() {
+      expect(patchedHymn.name).to.equal('Patched Hymn');
+      expect(patchedHymn.info).to.equal('This is the patched hymn!!!');
     });
   });
 
-  describe('DELETE /api/things/:id', function() {
+  describe('DELETE /api/hymns/:id', function() {
     it('should respond with 204 on successful removal', function(done) {
       request(app)
-        .delete(`/api/things/${newThing._id}`)
+        .delete(`/api/hymns/${newHymn._id}`)
         .expect(204)
         .end(err => {
           if(err) {
@@ -173,9 +173,9 @@ describe('Thing API:', function() {
         });
     });
 
-    it('should respond with 404 when thing does not exist', function(done) {
+    it('should respond with 404 when hymn does not exist', function(done) {
       request(app)
-        .delete(`/api/things/${newThing._id}`)
+        .delete(`/api/hymns/${newHymn._id}`)
         .expect(404)
         .end(err => {
           if(err) {

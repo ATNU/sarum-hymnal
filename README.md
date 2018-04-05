@@ -4,8 +4,8 @@ To build cantaloupe:
 ./src/cantaloupe/runBuild.sh
 ```
 
-Then run:
+Run dev stack:
 
 ```
-docker-compose up [ -d ]
+docker-compose -f docker-compose-dev.yml up [ -d ]
 ```

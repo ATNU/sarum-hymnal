@@ -5,37 +5,64 @@
 
 'use strict';
 import sqldb from '../sqldb';
-var Thing = sqldb.Thing;
+var Hymn = sqldb.Hymn;
+var Image = sqldb.Image;
 
-Thing.sync()
-    .then(() => Thing.destroy({ where: {} }))
+Hymn.sync()
+    .then(() => Hymn.destroy({ where: {} }))
     .then(() => {
-      Thing.bulkCreate([{
-        name: 'Development Tools',
-        info: 'Integration with popular tools such as Webpack, Gulp, Babel, TypeScript, Karma, '
-                + 'Mocha, ESLint, Node Inspector, Livereload, Protractor, Pug, '
-                + 'Stylus, Sass, and Less.'
-      }, {
-        name: 'Server and Client integration',
-        info: 'Built with a powerful and fun stack: MongoDB, Express, '
-                + 'AngularJS, and Node.'
-      }, {
-        name: 'Smart Build System',
-        info: 'Build system ignores `spec` files, allowing you to keep '
-                + 'tests alongside code. Automatic injection of scripts and '
-                + 'styles into your index.html'
-      }, {
-        name: 'Modular Structure',
-        info: 'Best practice client and server structures allow for more '
-                + 'code reusability and maximum scalability'
-      }, {
-        name: 'Optimized Build',
-        info: 'Build process packs up your templates as a single JavaScript '
-                + 'payload, minifies your scripts/css/images, and rewrites asset '
-                + 'names for caching.'
-      }, {
-        name: 'Deployment Ready',
-        info: 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-      }]);
-    });
+      return Hymn.bulkCreate([{
+        folio: '1r',
+        staves: '4-9',
+        name: 'Conditor alme syderum',
+        clef: 'F3',
+        firstLine: 'E C E G A A F G',
+        melody: null,
+        cycle: 'Temporal',
+        feastOrSeason: 'Advent',
+        grade: null,
+        days: 'Daily',
+        startDate: null,
+        endDate: null,
+        office: 'Vespers',
+        notes: 'Notes'
+      },{
+        folio: '1v',
+        staves: '1-7',
+        name: 'Conditor alme syderum',
+        clef: 'F3',
+        firstLine: 'E C E G A A F G',
+        melody: null,
+        cycle: 'Temporal',
+        feastOrSeason: 'Advent',
+        grade: null,
+        days: 'Daily',
+        startDate: null,
+        endDate: null,
+        office: 'Vespers',
+        notes: 'Notes'
+      }
+      ]);
+    })
+    .then(() => {
+      return Image.sync()
+            .then(() => Image.destroy({ where: {} }))
+            .then(() => {
+              return Image.bulkCreate([{
+                'filename': 'GB-Osj_MS60_001r.tif'
+              }
+              ]);
+            });
+    })
+    .then(() => {
 
+      return Hymn.findAll({ limit: 1 })
+    })
+    .then((Hymns) => {
+
+      return Image.findAll({ limit: 1 }).then((Images) => {
+        Hymns[0].addImage(Images[0]).then(() => {
+          Hymns[0].getImages().then((imgs) => {console.log(imgs)})
+        })
+      })
+    });

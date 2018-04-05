@@ -5,11 +5,11 @@
 'use strict';
 
 import {EventEmitter} from 'events';
-var Hymn = require('../../sqldb').Hymn;
-var HymnEvents = new EventEmitter();
+var Thing = require('../../sqldb').Thing;
+var ThingEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
-HymnEvents.setMaxListeners(0);
+ThingEvents.setMaxListeners(0);
 
 // Model events
 var events = {
@@ -19,20 +19,20 @@ var events = {
 };
 
 // Register the event emitter to the model events
-function registerEvents(Hymn) {
+function registerEvents(Thing) {
   for(var e in events) {
     let event = events[e];
-    Hymn.hook(e, emitEvent(event));
+    Thing.hook(e, emitEvent(event));
   }
 }
 
 function emitEvent(event) {
   return function(doc, options, done) {
-    HymnEvents.emit(`${event}:${doc._id}`, doc);
-    HymnEvents.emit(event, doc);
+    ThingEvents.emit(`${event}:${doc._id}`, doc);
+    ThingEvents.emit(event, doc);
     done(null);
   };
 }
 
-registerEvents(Hymn);
-export default HymnEvents;
+registerEvents(Thing);
+export default ThingEvents;
