@@ -20,6 +20,8 @@ import {
 
 import { RouterModule, Routes } from '@angular/router';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { MatIconModule, MatCardModule, MatTabsModule, MatListModule, MatButtonModule, MatProgressSpinnerModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
@@ -54,7 +56,7 @@ if(constants.env === 'development') {
 }
 
 const appRoutes: Routes = [{ path: '',
-    redirectTo: '/home',
+    redirectTo: '/',
     pathMatch: 'full'
 }];
 
@@ -63,7 +65,13 @@ const appRoutes: Routes = [{ path: '',
     imports: [
         BrowserModule,
         HttpModule,
-
+        FlexLayoutModule,
+        MatIconModule,
+        MatCardModule,
+        MatTabsModule,
+        MatListModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
         RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),
         MainModule,
         DirectivesModule,

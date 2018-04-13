@@ -21,6 +21,10 @@ export class MainComponent implements OnInit {
     }
 
     ngOnInit() {
+
+    }
+
+    /*ngOnInit() {
         return this.Http.get('/api/things')
             .map(res => res.json())
             // .catch(err => Observable.throw(err.json().error || 'Server error'))
@@ -52,5 +56,5 @@ export class MainComponent implements OnInit {
             .subscribe(() => {
                 console.log('Deleted Thing');
             });
-    }
+    }*/
 }

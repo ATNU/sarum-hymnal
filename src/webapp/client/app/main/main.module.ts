@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+import { MatIconModule, MatCardModule, MatTabsModule, MatListModule, MatButtonModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { DirectivesModule } from "../../components/directives.module";
 
 
 export const ROUTES: Routes = [
-    { path: 'home', component: MainComponent },
+    { path: '', component: MainComponent },
 ];
 
 
@@ -20,7 +20,13 @@ export const ROUTES: Routes = [
         BrowserModule,
         FormsModule,
         RouterModule.forChild(ROUTES),
-        DirectivesModule
+        DirectivesModule,
+        MatIconModule,
+        MatCardModule,
+        MatTabsModule,
+        MatListModule,
+        MatButtonModule,
+        MatProgressSpinnerModule
     ],
     declarations: [
         MainComponent,
