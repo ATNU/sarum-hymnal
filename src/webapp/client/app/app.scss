@@ -1,7 +1,8 @@
 $fa-font-path: '/assets/fonts/font-awesome/';
 @import '~font-awesome/scss/font-awesome';
-
-// @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
+@import '~@angular/material/prebuilt-themes/indigo-pink';
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 /**
  * App-wide Styles
@@ -14,11 +15,28 @@ $fa-font-path: '/assets/fonts/font-awesome/';
   padding: 0.2em 0;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+html, body, app {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: #f0f0f0;
+}
+
+app {
+  display: flex;
+  flex-direction: column;
+}
+
+.content, main {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 [hidden] {

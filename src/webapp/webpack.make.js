@@ -170,6 +170,7 @@ module.exports = function makeWebpackConfig(options) {
             test: /\.css$/,
             use: ['raw-loader', 'css-loader', 'postcss-loader'],
             include: [
+                path.resolve(__dirname, 'node_modules/@angular/material/prebuilt-themes/indigo-pink.css'),
                 path.resolve(__dirname, 'client')
             ]
         }, {
@@ -178,7 +179,6 @@ module.exports = function makeWebpackConfig(options) {
             test: /\.(scss|sass)$/,
             use: ['raw-loader', 'sass-loader'],
             include: [
-                path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
                 path.resolve(__dirname, 'client')
             ]
 

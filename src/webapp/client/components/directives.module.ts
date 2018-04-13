@@ -1,29 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { MatIconModule, MatCardModule, MatTabsModule, MatListModule, MatButtonModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { RouterModule } from '@angular/router';
 
-
-import { NavbarComponent } from './navbar/navbar.component';
+import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { ViewerComponent } from './viewer/viewer.component';
 
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 @NgModule({
     imports: [
         CommonModule,
-
         RouterModule,
+        FlexLayoutModule,
+        MatIconModule,
+        MatCardModule,
+        MatTabsModule,
+        MatListModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
     ],
     declarations: [
-        NavbarComponent,
+        HeaderComponent,
         FooterComponent,
+        ViewerComponent,
 
     ],
     exports: [
-        NavbarComponent,
+        HeaderComponent,
         FooterComponent,
+        ViewerComponent,
 
     ]
 })
