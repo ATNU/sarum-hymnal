@@ -9,6 +9,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ViewerComponent } from './viewer/viewer.component';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {MetadataComponent} from "./metadata/metadata.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     imports: [
@@ -21,18 +23,19 @@ import {FlexLayoutModule} from "@angular/flex-layout";
         MatListModule,
         MatButtonModule,
         MatProgressSpinnerModule,
+        BrowserAnimationsModule
     ],
     declarations: [
         HeaderComponent,
         FooterComponent,
         ViewerComponent,
-
+        MetadataComponent
     ],
     exports: [
         HeaderComponent,
         FooterComponent,
         ViewerComponent,
-
+        MetadataComponent
     ]
 })
 export class DirectivesModule {}
