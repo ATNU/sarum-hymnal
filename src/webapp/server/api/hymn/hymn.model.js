@@ -12,7 +12,7 @@ export default function(sequelize, DataTypes) {
     staves: DataTypes.STRING,
     name: DataTypes.STRING,
     clef: DataTypes.STRING,
-    firstLine: { type: DataTypes.STRING, field: 'first_line'} ,
+    firstLine: { type: DataTypes.STRING, field: 'first_line'},
     melody: DataTypes.STRING,
     cycle: DataTypes.STRING,
     feastOrSeason: { type: DataTypes.STRING, field: 'feast_or_season'},

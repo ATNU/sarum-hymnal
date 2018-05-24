@@ -86,8 +86,8 @@ export function showImages(req, res) {
     where: {
       _id: req.params.id
     }
-  }).then((res) => {
-    return res.getImages()
+  }).then(function() {
+    return res.getImages();
   })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))

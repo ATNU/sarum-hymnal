@@ -19,10 +19,10 @@ var events = {
 };
 
 // Register the event emitter to the model events
-function registerEvents(Hymn) {
+function registerEvents(hymn) {
   for(var e in events) {
     let event = events[e];
-    Hymn.hook(e, emitEvent(event));
+    hymn.hook(e, emitEvent(event));
   }
 }
 
