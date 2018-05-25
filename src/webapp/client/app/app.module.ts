@@ -44,10 +44,10 @@ let providers: Provider[] = [{
     deps: [Http]
 }];
 
-if(constants.env === 'development') {
+if( constants.env === 'development' ) {
     @Injectable()
     class HttpOptions extends BaseRequestOptions {
-        merge(options: RequestOptionsArgs):RequestOptions {
+        merge( options: RequestOptionsArgs ):RequestOptions {
             options.url = `http://localhost:9000${options.url}`;
             return super.merge(options);
         }

@@ -6,11 +6,11 @@ interface IPolyFillErrorConstructor extends ErrorConstructor {
     stackTraceLimit: any;
 }
 
-if(!ENV) {
+if( !ENV ) {
     var ENV = 'development';
 }
 
-if(ENV === 'production') {
+if( ENV === 'production' ) {
     // Production
 } else {
     // Development

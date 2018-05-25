@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { MainComponent } from './main.component';
-import { DirectivesModule } from "../../components/directives.module";
+import { DirectivesModule } from '../../components/directives.module';
 
 
 export const ROUTES: Routes = [

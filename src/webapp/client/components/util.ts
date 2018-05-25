@@ -62,6 +62,8 @@ export function isSameOrigin(url, origins) {
 }
 
 export function extractData(res: Response) {
-    if(!res.text()) return {};
+    if(!res.text()) {
+        return { };
+    }
     return res.json() || { };
 }

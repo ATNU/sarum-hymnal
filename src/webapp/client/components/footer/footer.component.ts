@@ -8,7 +8,7 @@ import {Computus} from 'ng-computus';
 })
 export class FooterComponent implements OnInit {
 
-    ngOnInit(){
+    ngOnInit() {
         const computus = new Computus(2000);
         console.log(computus);
     }

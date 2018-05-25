@@ -9,9 +9,7 @@ let Hymn = sqldb.Hymn;
 let Image = sqldb.Image;
 
 Hymn.sync()
-  .then(() => {
-    Hymn.destroy({ where: {} });
-  })
+  .then(() => Hymn.destroy({ where: {} }))
   .then(() => Hymn.bulkCreate([{
     folio: '1r',
     staves: '4-9',
@@ -63,7 +61,8 @@ Hymn.sync()
   })
   .then(Images =>
     Hymns[0].addImage(Images[0]).then(() =>
-      Hymns[0].getImages().then(imgs => console.log(imgs))
+      Hymns[0].getImages()
+      //Hymns[0].getImages().then(imgs => console.log(imgs))
     )
   )));
 
