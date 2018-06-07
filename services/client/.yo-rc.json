@@ -1,0 +1,21 @@
+{
+  "generator-ngx-rocket": {
+    "version": "5.0.0",
+    "props": {
+      "location": "path",
+      "appName": "client",
+      "target": [
+        "web"
+      ],
+      "pwa": false,
+      "ui": "material",
+      "layout": "simple",
+      "auth": false,
+      "lazy": false,
+      "angulartics": false,
+      "projectName": "client",
+      "packageManager": "npm",
+      "mobile": []
+    }
+  }
+}

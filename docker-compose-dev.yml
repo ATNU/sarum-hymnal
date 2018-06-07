@@ -4,7 +4,7 @@ services:
     image: atnu-cantaloupe
     build:
       context: ./
-      dockerfile: src/cantaloupe/Dockerfile
+      dockerfile: services/cantaloupe/Dockerfile
     ports:
       - "8182:8182"
     environment:
@@ -43,14 +43,13 @@ services:
     volumes:
      - ./data/minio:/data/
     command: ["sh", "-c", "[ -d /data/atnu-images ] || mkdir -p /data/atnu-images"]
-  webapp:
+  client:
     image: node:8
     volumes:
-      - "./src/webapp/:/usr/local/app"
+      - "./services/client/:/usr/local/app"
     command: "tail -f /dev/null"
     ports:
-      - "8000:8000"
-      - "3000:3000"
+      - "4200:4200"
     networks:
       - public
 
