@@ -1,16 +1,12 @@
 .mat-card {
-  margin: 20px;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+  margin: 25px auto;
   padding: 0;
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
 
-  seadragon, metadata {
+  app-viewer, app-metadata {
     display: block;
-    width: 50%;
-  }
-
-  section.page-info {
-    padding: 24px;
+    width: 100%;
+    height: 100%;
   }
 }
