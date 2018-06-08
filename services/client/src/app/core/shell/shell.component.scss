@@ -31,7 +31,7 @@
 // Force style down to child components
 // See https://angular.io/guide/component-styles#deep
 :host ::ng-deep .mat-drawer-backdrop {
-  top: 64px;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
@@ -43,6 +43,6 @@
   .mat-sidenav,
   .mat-drawer-content,
   :host ::ng-deep .mat-drawer-backdrop {
-    top: 56px;
+    top: 0;
   }
 }

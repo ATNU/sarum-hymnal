@@ -4,6 +4,13 @@
   margin: 25px auto;
   padding: 0;
 
+  &.fxClass-xs,
+  &.fxClass-sm {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 10px auto;
+  }
+
   app-viewer, app-metadata {
     display: block;
     width: 100%;
