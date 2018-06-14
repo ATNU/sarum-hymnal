@@ -1,0 +1,22 @@
+{
+    "postgres":{
+        "account": {
+            "user": "postgres",
+            "password": "pass",
+            "dbname": "postgres"
+        },
+        "conn": {
+            "host": "172.17.0.2",
+            "port": "5432",
+            "sslmode":"disable"
+        }
+    },
+    "host":{
+        "domain": "localhost",
+        "port": "8080"
+    },
+    "requestformat":{
+        "date": "dd/mm/yy",
+        "page": "%d%d"
+    }
+}
