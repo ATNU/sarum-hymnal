@@ -2,8 +2,9 @@
 package main
 
 import (
+	cfg "webserver/cfg"
 	psql "webserver/psql"
-	rfl "webserver/restful"
+	//srfl "webserver/restful"
 )
 
 //Main begins the following activity
@@ -11,7 +12,7 @@ import (
 //-Establish connection to database
 //-Open RESTful API and begin receiving requests
 func main() {
-	CfgInit()
-	psql.Init(CfgConnString())
-	rfl.Init()
+	cfg.Init()
+	psql.Init(0)
+	psql.Query()
 }
