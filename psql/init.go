@@ -1,15 +1,16 @@
 //Package psql provides primitives for establishing & managing connections to PostgreSQL
+//and querying
 package psql
 
 import (
 	"database/sql"
-	_ "github.com/lib/pq" //May need this
+	_ "github.com/lib/pq" //Drivers required for postgres
 	"log"
 	"time"
 	cfg "webserver/cfg"
 )
 
-var db *sql.DB
+var db *sql.DB //Our database connection
 
 //Init initialises a connection to postgres. Essentially testing
 //that the database is fine to use
@@ -40,9 +41,9 @@ func Init(apt int) {
 	}
 }
 
-//Query makes a request to postgres for information
-//Returns a hymn struct
-func Query() {
+//Query makes sure it is safe to query postgres and then forwards the query
+//The resultant rows are returned
+func Query(q string) *sql.Rows {
 	if db == nil {
 		Init(1)
 	}
@@ -53,5 +54,9 @@ func Query() {
 		Init(1)
 	}
 
-	//Do query now
+	rows, err := db.Query(q)
+	if err != nil {
+		log.Println(err)
+	}
+	return rows
 }
