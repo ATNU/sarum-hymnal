@@ -7,13 +7,20 @@ import (
 	_ "github.com/lib/pq" //Drivers required for postgres
 	"log"
 	"time"
-	cfg "webserver/cfg"
+	"webserver/cfg"
 )
 
-var db *sql.DB //Our database connection
+var db *sql.DB //Shared database connection
 
-//Init initialises a connection to postgres. Essentially testing
-//that the database is fine to use
+//Usable constrains data types to be retrieved from postgres
+//and returnes as JSON to client
+type Usable interface {
+	QueryNew(d *sql.DB)
+	MarshalJSON() ([]byte, error)
+}
+
+//Init initialises a connection to postgres.
+//Testing that the database is fine to use.
 //Arguments: string reprsentatin of connection params, attempt number (default 0)
 func Init(apt int) {
 	if apt > 0 {
@@ -41,8 +48,9 @@ func Init(apt int) {
 	}
 }
 
-//Query makes sure it is safe to query postgres and then forwards the query
-//The resultant rows are returned
+//Query makes sure it is safe to query postgres, and then executes
+//sql query.
+//Resultant rows are returned
 func Query(q string) *sql.Rows {
 	if db == nil {
 		Init(1)
@@ -58,5 +66,6 @@ func Query(q string) *sql.Rows {
 	if err != nil {
 		log.Println(err)
 	}
+
 	return rows
 }

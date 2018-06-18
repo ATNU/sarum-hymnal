@@ -10,6 +10,8 @@ RUN go get github.com/spf13/viper &&        \
 
 COPY . .
 
+EXPOSE 8080:8080
+
 RUN go install -v ./
 
 CMD ["webserver"]
