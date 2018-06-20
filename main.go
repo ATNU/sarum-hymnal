@@ -2,8 +2,8 @@
 package main
 
 import (
-	//"webserver/cfg"
-	//"webserver/psql"
+	"webserver/cfg"
+	"webserver/psql"
 	"webserver/restful"
 )
 
@@ -12,8 +12,7 @@ import (
 //-Establish connection to database
 //-Open RESTful API and begin receiving requests
 func main() {
-	//cfg.Init()
-	//psql.Init(0)
-	//psql.Query("")
+	cfg.Init()
+	psql.Init(0)
 	restful.Init()
 }

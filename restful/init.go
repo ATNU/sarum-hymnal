@@ -11,14 +11,7 @@ import (
 //Init creates a new URL path and attaches required handlers
 func Init() {
 	r := mux.NewRouter()
-	r.HandleFunc("/", handlePage).Methods("GET").Headers("query", "page")
-
-	//TODO: Set MethodNotAllowedHandler and NoPathHandler
-
+	r.HandleFunc("/page/{page}", handleSarumHymnalPage).Methods("GET")
+	r.HandleFunc("/date/{date}", handleSarumHymnalDate).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8080", r))
-}
-
-//logRequest logs request data
-func logRequest(r *http.Request) {
-	log.Println(r.Header.Get("date") + "Request received")
 }

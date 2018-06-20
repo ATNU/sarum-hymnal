@@ -18,7 +18,9 @@ func Init() {
 	err := vp.ReadInConfig()
 	if err != nil {
 		log.Println("Unable to find configuration file%nAttempting to use defaults")
+		return
 	}
+	log.Println("Found config " + cfgName)
 
 	vp.WatchConfig()
 	vp.OnConfigChange(func(e fsnotify.Event) {
@@ -40,7 +42,7 @@ func Value(key string) string {
 	return vp.GetString(key)
 }
 
-//Value retreives a int single config value
+//ValueInt retreives a int single config value
 func ValueInt(key string) int {
 	return vp.GetInt(key)
 }

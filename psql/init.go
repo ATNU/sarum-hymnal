@@ -12,13 +12,6 @@ import (
 
 var db *sql.DB //Shared database connection
 
-//Usable constrains data types to be retrieved from postgres
-//and returnes as JSON to client
-type Usable interface {
-	QueryNew(d *sql.DB)
-	MarshalJSON() ([]byte, error)
-}
-
 //Init initialises a connection to postgres.
 //Testing that the database is fine to use.
 //Arguments: string reprsentatin of connection params, attempt number (default 0)
@@ -51,7 +44,7 @@ func Init(apt int) {
 //Query makes sure it is safe to query postgres, and then executes
 //sql query.
 //Resultant rows are returned
-func Query(q string) *sql.Rows {
+func Query(q string, args ...interface{}) (*sql.Rows, error) {
 	if db == nil {
 		Init(1)
 	}
@@ -61,11 +54,5 @@ func Query(q string) *sql.Rows {
 		time.Sleep(5 * time.Second)
 		Init(1)
 	}
-
-	rows, err := db.Query(q)
-	if err != nil {
-		log.Println(err)
-	}
-
-	return rows
+	return db.Query(q, args...)
 }
