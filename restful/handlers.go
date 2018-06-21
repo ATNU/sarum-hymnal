@@ -28,6 +28,7 @@ func handleSarumHymnalDate(w http.ResponseWriter, r *http.Request) {
 
 //handleSarumHymnalPage handles a page request
 func handleSarumHymnalPage(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	vars := mux.Vars(r)
 	log.Println(r.Header.Get("date")+"Page request received with param:", vars["page"])
 
@@ -35,9 +36,7 @@ func handleSarumHymnalPage(w http.ResponseWriter, r *http.Request) {
 	all := h.GetByPage(vars["page"])
 
 	en := json.NewEncoder(w)
-	for _, val := range all {
-		en.Encode(val)
-	}
+	en.Encode(all)
 }
 
 //handleUnfiltered handles unrouted request

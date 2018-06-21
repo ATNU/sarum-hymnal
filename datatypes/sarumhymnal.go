@@ -3,7 +3,6 @@
 package datatypes
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"time"
@@ -42,11 +41,6 @@ func (s *SarumHymnal) ToString() string {
 //by executing a number of sql queries
 func (s *SarumHymnal) QueryNew() {
 
-}
-
-//MarshalJSON packs the struct into a JSON byte array
-func (s *SarumHymnal) MarshalJSON() ([]byte, error) {
-	return json.Marshal(s)
 }
 
 //GetByDate retreives all hymns from postgres that may be chanted on that date
