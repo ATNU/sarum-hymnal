@@ -83,12 +83,12 @@ func (*SarumHymnal) GetByDate(date string) ([]SarumHymnal, error) {
 //GetByPage retreives all hymns from postgres that may be chanted on that date
 func (*SarumHymnal) GetByPage(page string) []SarumHymnal {
 	query := `
-		SELECT * FROM sarumhymnal.hymn WHERE sarumhymnal.hymn."ID" in 
-		(
-			SELECT sarumhymnal.entry.hymn 
-			FROM sarumhymnal.entry
-			WHERE folio=$1
-		)`
+		SELECT sarumhymnal.hymn."ID", sarumhymnal.hymn.name, sarumhymnal.hymn.day, sarumhymnal.hymn.office, sarumhymnal.hymn.note
+		FROM sarumhymnal.hymn
+		INNER JOIN sarumhymnal.hymnentry ON sarumhymnal.hymn."ID"=sarumhymnal.hymnentry.hymn
+		INNER JOIN sarumhymnal.entry ON sarumhymnal.entry."ID"=sarumhymnal.hymnentry.entry
+		WHERE sarumhymnal.entry.folio=$1
+	`
 
 	//Query and check for errors
 	r, err := psql.Query(query, page)
