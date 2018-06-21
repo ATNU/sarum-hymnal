@@ -15,6 +15,21 @@
         </mat-list>
       </nav>
     </mat-sidenav>
+      <mat-sidenav #sidecalendar mode="over" position="end" ngClass.gt-sm="has-border">
+          <nav>
+              <mat-list>
+                  <mat-divider></mat-divider>
+                  <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="sidecalendar.close()">
+                      <span translate>Home</span>
+                  </a>
+                  <mat-divider></mat-divider>
+                  <a mat-list-item routerLink="/about" routerLinkActive="active" (click)="sidecalendar.close()">
+                      <span translate>About</span>
+                  </a>
+                  <mat-divider></mat-divider>
+              </mat-list>
+          </nav>
+      </mat-sidenav>
     <mat-sidenav-content>
       <app-header [sidenav]="sidenav"></app-header>
       <router-outlet></router-outlet>

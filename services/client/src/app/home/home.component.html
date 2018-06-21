@@ -1,4 +1,7 @@
-<mat-card fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" ngClass.xs="fxClass-xs" ngClass.sm="fxClass-sm">
+<mat-card class="viewer-card" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" ngClass.xs="fxClass-xs" ngClass.sm="fxClass-sm">
     <app-viewer></app-viewer>
     <app-metadata></app-metadata>
+</mat-card>
+<mat-card class="calendar-card" fxHide fxShow.gt-sm ngClass.xs="fxClass-xs" ngClass.sm="fxClass-sm">
+    <app-calendar fxLayout="row"></app-calendar>
 </mat-card>

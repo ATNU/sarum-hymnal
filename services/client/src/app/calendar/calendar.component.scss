@@ -1,0 +1,45 @@
+.calendar-icon {
+  width: 85px;
+  height: 85px;
+  text-align: center;
+  line-height: 85px;
+
+  &.solar-cycle {
+    background-color: gold;
+  }
+
+  &.martyrology-letter {
+    background-color: darkred;
+  }
+
+  &.metonic-cycle {
+    background-color: firebrick;
+  }
+
+  &.dominical-letter {
+    background-color: red;
+  }
+
+  &.open-calendar {
+    background-color: #105cb6;
+  }
+
+  mat-icon, strong {
+    color: white;
+    font-size: 45px;
+    display: block;
+    width: 85px;
+    height: 85px;
+    line-height: 85px;
+  }
+}
+
+.date-text {
+
+  width: calc(100% - 425px);
+  h1 {
+    margin: 0;
+    line-height: 85px;
+    padding: 0 10px;
+  }
+}

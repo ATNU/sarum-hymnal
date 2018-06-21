@@ -9,6 +9,7 @@ import { MaterialModule } from './material.module';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeModule } from './home/home.module';
+import { CalendarModule } from './calendar/calendar.module';
 import { AboutModule } from './about/about.module';
 import { MetadataModule } from './metadata/metadata.module';
 import { ViewerModule } from './viewer/viewer.module';
@@ -26,6 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
     CoreModule,
     SharedModule,
     HomeModule,
+    CalendarModule,
     AboutModule,
     MetadataModule,
     ViewerModule,

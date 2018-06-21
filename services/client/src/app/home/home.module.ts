@@ -12,6 +12,7 @@ import { QuoteService } from './quote.service';
 
 import { MetadataModule} from "@app/metadata/metadata.module";
 import { ViewerModule} from "@app/viewer/viewer.module";
+import { CalendarModule } from "@app/calendar/calendar.module";
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { ViewerModule} from "@app/viewer/viewer.module";
     MaterialModule,
     HomeRoutingModule,
     MetadataModule,
-    ViewerModule
+    ViewerModule,
+    CalendarModule
   ],
   declarations: [
     HomeComponent
