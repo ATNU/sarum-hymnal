@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Computus } from "ng-computus";
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 // Depending on whether rollup is used, moment needs to be imported differently.
@@ -38,10 +39,13 @@ export class CalendarComponent implements OnInit {
 
   date = moment([1600, 0, 1]);
   control = new FormControl({value: this.date, disabled: true });
+  computus: Object;
 
   constructor() { }
 
   ngOnInit() {
+    this.computus = new Computus(1600);
+    console.log(this.computus);
   }
 
 }
