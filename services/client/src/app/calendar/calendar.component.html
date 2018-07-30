@@ -4,30 +4,30 @@
 </div>
 <div class="date-text" fxFlex="flex" fxLayout="column">
     <mat-form-field>
-        <input matInput [matDatepicker]="picker" [formControl]="control">
+        <input matInput [matDatepicker]="picker" [formControl]="control" (dateChange)="dateChange($event)">
         <mat-datepicker #picker startView="multi-year" [startAt]="date" disabled="false"></mat-datepicker>
     </mat-form-field>
     <div class="date-meta">
-        <span>{{date | amDateFormat:'dddd'}}</span>
-        <span>{{date | amDateFormat:'Wo'}} Week</span>
-        <span>{{date | amDateFormat:'DDDo'}} Day</span>
+        <span>{{control.value | amDateFormat:'dddd'}}</span>
+        <span>{{control.value | amDateFormat:'Wo'}} Week</span>
+        <span>{{control.value | amDateFormat:'DDDo'}} Day</span>
     </div>
 </div>
 <div class="calendar-icon dominical-letter">
-    <strong>IV</strong>
+    <strong>{{computus.gregorian.dominicalLetter}}</strong>
     <small class="label">Dominical</small>
 </div>
 <div class="calendar-icon martyrology-letter">
-    <strong>L</strong>
+    <strong>{{computus.gregorian.martyrologyLetter}}</strong>
     <small class="label">Martyrology</small>
 </div>
 <div class="calendar-icon metonic-cycle">
     <mat-icon>repeat</mat-icon>
-    <small class="value">18</small>
+    <small class="value">{{computus.gregorian.solarCycle}}</small>
     <small class="label">Metonic Cycle</small>
 </div>
 <div class="calendar-icon solar-cycle">
     <mat-icon>wb_sunny</mat-icon>
-    <small class="value">9</small>
+    <small class="value">{{computus.gregorian.solarCycle}}</small>
     <small class="label">Solar Cycle</small>
 </div>
