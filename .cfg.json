@@ -1,10 +1,17 @@
 {
     "postgres":{
-        "timeoutattempt": 5,
+        "timeoutattempt": 20,
         "account": {
             "user": "postgres",
             "password": "pass",
-            "dbname": "postgres"
+            "dbname": "sarumhymnal",
+            "schema": "webserver"
+        },
+        "tables": {
+             "hymn": "hymn",
+            "entry":"entry",
+            "event": "event",
+            "image": "image"
         },
         "conn": {
             "host": "172.17.0.2",
@@ -14,10 +21,6 @@
     },
     "host":{
         "domain": "localhost",
-        "port": "8080"
-    },
-    "requestformat":{
-        "date": "dd/mm/yy",
-        "page": "%d%d"
+        "port": ":8080"
     }
 }
