@@ -11,11 +11,12 @@ const cfgName string = ".cfg"
 func main() {
 	SetupConfig()
 	ConnDB(0)
+	QueryDatePsalter("")
 	WebServer()
+
 }
 
-// SetupConfig handles finding and loading config values
-// Any
+// SetupConfig loads config and begins watching for modification for values
 func SetupConfig() {
 	viper.SetConfigName(cfgName)
 	viper.AddConfigPath(".")

@@ -40,7 +40,7 @@ func HandleDate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h, err := QueryDate(mux.Vars(r)["date"], easter[0])
+	h, err := QueryDatePsalter(mux.Vars(r)["date"]) //, easter[0])
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("500 - Something bad happened!"))

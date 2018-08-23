@@ -1,10 +1,18 @@
+[![Build Status](https://travis-ci.org/ATNU/sarum-hymnal-webserver.svg?branch=master)](https://travis-ci.org/ATNU/sarum-hymnal-webserver)
+
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/ATNU/sarum-hymnal-webserver)
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/ATNU/sarum-hymnal-webserver)](https://goreportcard.com/report/github.com/ATNU/sarum-hymnal-webserver)
+
 # Sarum Hymnal
 
-Service to calculate and retreive sarum hymnal data from [PostgreSQL]
+A digital edition of The Sarum Hymnal, a 16th-century part-book.
+Service to calculate and retreive sarum hymnal data from [PostgreSQL] and serve via a RESTful API
 
 ## Installation
-Requires [go] to build
-Install dependancies and build binary
+Requires [go].
+
+Install dependancies and build binary:
 
 ```sh
 $ go get 
@@ -15,7 +23,9 @@ $ go get
 $ go build
 ```
 
-Configuration found in '.cfg.json'
+Requires a connection to Postgres: use configuration to setup
+* Ip & Port
+* Authentication
 
 
 ## Usage
