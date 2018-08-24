@@ -25,10 +25,10 @@ func WebServer() {
 	r.HandleFunc("/date/{date}", HandleDate).Methods("GET")
 
 	srv := &http.Server{
-		Addr:         viper.GetString("webserver.addr"),
-		WriteTimeout: time.Second * viper.GetDuration("webserver.timeout.write"),
-		ReadTimeout:  time.Second * viper.GetDuration("webserver.timeout.read"),
-		IdleTimeout:  time.Second * viper.GetDuration("webserver.timeout.idle"),
+		Addr:         viper.GetString("host.addr"),
+		WriteTimeout: time.Second * viper.GetDuration("host.timeout.write"),
+		ReadTimeout:  time.Second * viper.GetDuration("host.timeout.read"),
+		IdleTimeout:  time.Second * viper.GetDuration("host.timeout.idle"),
 		Handler:      r,
 	}
 

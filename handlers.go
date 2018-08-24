@@ -19,37 +19,31 @@ import (
 //
 // Any errors generated will be returned to client
 func HandleDate(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
 	log.Println(r.Header.Get("date")+"Date request received with param:", mux.Vars(r)["date"])
-	var e time.Time
-	var easter []string
 	var err error
-	if easter = r.URL.Query()["easter"]; len(easter) > 0 {
-		if e, err = time.Parse(time.RFC3339, easter[0]); err != nil {
-			log.Println(err)
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("400 - Invalid easter date!"))
-			return
+	if easter := r.URL.Query()["easter"]; len(easter) > 0 {
+		if e, err := time.Parse(time.RFC3339, easter[0]); err == nil {
+			if t, err := time.Parse(time.RFC3339, mux.Vars(r)["date"]); err == nil {
+				h, err := QueryDatePsalter(&t)
+				_ = e
+				if err != nil {
+					log.Println(err)
+					w.WriteHeader(http.StatusInternalServerError)
+					return
+				}
+				w.Header().Set("Content-Type", "application/json")
+				en := json.NewEncoder(w)
+				en.Encode(h)
+				return
+			}
 		}
-	}
-
-	if _, err := time.Parse(time.RFC3339, mux.Vars(r)["date"]); err != nil {
-		log.Println("Error with date")
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("400 - Invalid query date!"))
+		log.Println(err)
 		return
 	}
-
-	h, err := QueryDatePsalter(mux.Vars(r)["date"]) //, easter[0])
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("500 - Something bad happened!"))
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	en := json.NewEncoder(w)
-	en.Encode(h)
-	_ = e
+	log.Println("No Easter supplied")
+	w.WriteHeader(http.StatusBadRequest)
+	return
 }
 
 // HandleFolio handles a folio query and returns a JSON object containing sarum hymnal hymn metadata
@@ -71,7 +65,7 @@ func HandleFolio(w http.ResponseWriter, r *http.Request) {
 	}
 	h, err := QueryFolio(mux.Vars(r)["folio"])
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("500 - Something bad happened!"))
 		return
 	}

@@ -7,19 +7,20 @@
             "dbname": "sarumhymnal",
             "schema": "webserver"
         },
-        "tables": {
-             "hymn": "hymn",
-            "entry":"entry",
-            "event": "event",
-            "image": "image"
-        },
         "conn": {
-            "host": "172.17.0.2",
+            "host": "localhost",
             "port": "5432",
             "sslmode":"disable"
         }
     },
     "host":{
+        "addr": "localhost:8080",
+        "timeout": {
+            "write": 15,
+            "read": 15,
+            "idle": 60,
+            "cancel": 60 
+        },
         "domain": "localhost",
         "port": ":8080"
     }
