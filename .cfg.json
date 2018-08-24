@@ -1,6 +1,6 @@
 {
     "postgres":{
-        "timeoutattempt": 20,
+        "timeoutattempt": 1,
         "account": {
             "user": "postgres",
             "password": "pass",

@@ -17,7 +17,6 @@ var db *sql.DB
 //
 // Unsuccessful connection attempts are reattempted by method of exponential backoff
 func ConnDB(n int) {
-	log.Println(connName())
 	if n > 0 {
 		if n >= viper.GetInt("postgres.timeoutattempt") {
 			log.Fatal("Max attempts exceeded, shutting down")

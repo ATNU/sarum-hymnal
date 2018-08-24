@@ -18,6 +18,17 @@ const (
 	vespers2
 )
 
+var office = map[int]string{
+	0: "matins",
+	1: "lauds",
+	2: "prime",
+	3: "terce",
+	4: "sext",
+	5: "none",
+	6: "vespers1",
+	7: "vespers2",
+}
+
 // SarumHymnal representation of sarumhymnal hymn
 type SarumHymnal struct {
 	Image     string `json:"image,omitempty"`
@@ -39,7 +50,7 @@ type SarumHymnal struct {
 // Returns:
 // - Response data containing a SarumHymnal struct for each office
 // - error any errors encountered are propagated along with empty response
-func QueryDate(d, e string) (map[int]SarumHymnal, error) {
+func QueryDate(d *time.Time) (map[string]SarumHymnal, error) {
 	psalter, err := QueryDatePsalter(d)
 	if err != nil {
 		return nil, err
@@ -57,16 +68,17 @@ func QueryDate(d, e string) (map[int]SarumHymnal, error) {
 		return nil, err
 	}
 
-	var r map[int]SarumHymnal
+	r := make(map[string]SarumHymnal)
 	for i := matins; i < officeSize; i++ {
 		if val, ok := sanctoral[i]; ok == true {
-			r[i] = val
+			r[office[i]] = val
 		} else if val, ok := temporal[i]; ok == true {
-			r[i] = val
+			r[office[i]] = val
 		} else {
-			r[i] = psalter[i]
+			r[office[i]] = psalter[i]
 		}
 	}
+	log.Println(r)
 	return r, nil
 }
 
@@ -104,12 +116,7 @@ func QueryFolio(folio string) ([]SarumHymnal, error) {
 // - string date
 //
 // Returns a slice of Hymns and propagates any errors
-func QueryDatePsalter(d string) (map[int]SarumHymnal, error) {
-	t, err := time.Parse(time.RFC3339, d)
-	if err != nil {
-		return nil, err
-	}
-
+func QueryDatePsalter(t *time.Time) (map[int]SarumHymnal, error) {
 	query := `
 	SELECT matins, lauds, prime, terce, sext, none, vespers FROM sarumhymnal.psalter
 	WHERE sarumhymnal.psalter.desc = $1
@@ -154,7 +161,6 @@ func QueryDatePsalter(d string) (map[int]SarumHymnal, error) {
 		}
 		r.Close()
 	}
-	log.Println(res)
 	return res, nil
 }
 
@@ -165,7 +171,8 @@ func QueryDatePsalter(d string) (map[int]SarumHymnal, error) {
 // Returns:
 // - map[int]SarumHymnal Hymns sung at each office (key)
 // - error any errors encountered along with nil map
-func QueryDateTemporal(d string) (map[int]SarumHymnal, error) {
+func QueryDateTemporal(t *time.Time) (map[int]SarumHymnal, error) {
+	// TODO: Implement
 	return map[int]SarumHymnal{}, nil
 }
 
@@ -176,28 +183,24 @@ func QueryDateTemporal(d string) (map[int]SarumHymnal, error) {
 // Returns:
 // - map[int]SarumHymnal Hymns sung at each office (key)
 // - error any errors encountered along with nil map
-func QueryDateSanctoral(d string) (map[int]SarumHymnal, error) {
-	t, err := time.Parse(time.RFC3339, d)
-	if err != nil {
-		return nil, err
-	}
-
+func QueryDateSanctoral(t *time.Time) (map[int]SarumHymnal, error) {
+	log.Println("Running query...")
 	query := `
 	SELECT common, vespers1, matins, lauds, vespers2 FROM sarumhymnal.sanctoral
 	WHERE sarumhymnal.sanctoral.month = $1 AND sarumhymnal.sanctoral.day = $2
 	`
-	r, err := QueryDB(query, t.Month, t.Day)
+	r, err := QueryDB(query, int(t.Month()), t.Day())
 	if err != nil {
 		return nil, err
 	}
 	defer r.Close()
 
-	res := make(map[int]SarumHymnal)
+	res := make(map[int]SarumHymnal, 1)
 	for r.Next() {
 		var sanc = struct {
 			Common string
 			Office map[int]string
-		}{}
+		}{Office: map[int]string{}}
 		var v1, m, l, v2 string
 		r.Scan(&sanc.Common, &v1, &m, &l, &v2)
 		sanc.Office[vespers1] = v1
@@ -207,18 +210,18 @@ func QueryDateSanctoral(d string) (map[int]SarumHymnal, error) {
 
 		for idx := range sanc.Office {
 			if sanc.Office[idx] == "Common" {
-				query := `
-					SELECT $1, melody FROM sarumhymnal.common
-					WHERE sarumhymnal.common.abbrev = $2
+				query := `SELECT ` + office[idx] + `
+				FROM sarumhymnal.common
+				WHERE sarumhymnal.common.abbrev = $1
 				`
-				r, err := QueryDB(query, sanc.Office[idx], sanc.Common)
+				r, err := QueryDB(query, sanc.Common)
 				if err != nil {
 					return nil, err
 				}
 				for r.Next() {
-					var h, m string
-					r.Scan(&h, &m)
-					res[idx] = SarumHymnal{Hymn: h, Melody: m}
+					var h string
+					r.Scan(&h)
+					res[idx] = SarumHymnal{Hymn: h}
 				}
 				r.Close()
 			} else {
@@ -228,10 +231,9 @@ func QueryDateSanctoral(d string) (map[int]SarumHymnal, error) {
 	}
 
 	query = `
-			SELECT image, folio, staves, hymn, firstline, cycle FROM sarumhymnal.entry
+			SELECT image, folio, stave, hymn, first_line, cycle FROM sarumhymnal.entry
 			WHERE sarumhymnal.entry.hymn = $1
 			`
-
 	for idx := range res {
 		r, err := QueryDB(query, res[idx].Hymn)
 		if err != nil {
@@ -244,7 +246,6 @@ func QueryDateSanctoral(d string) (map[int]SarumHymnal, error) {
 		}
 		r.Close()
 	}
-	log.Println(res)
 	return res, nil
 }
 
@@ -255,7 +256,8 @@ func QueryDateSanctoral(d string) (map[int]SarumHymnal, error) {
 // Returns:
 // - map[int]SarumHymnal Hymns sung at each office (key)
 // - error any errors encountered along with nil map
-func QueryDateCompline(d string) (map[int]SarumHymnal, error) {
+func QueryDateCompline(t *time.Time) (map[int]SarumHymnal, error) {
+	// TODO: Implement
 	return map[int]SarumHymnal{}, nil
 }
 

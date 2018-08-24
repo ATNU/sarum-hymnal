@@ -11,9 +11,7 @@ const cfgName string = ".cfg"
 func main() {
 	SetupConfig()
 	ConnDB(0)
-	QueryDatePsalter("")
 	WebServer()
-
 }
 
 // SetupConfig loads config and begins watching for modification for values
