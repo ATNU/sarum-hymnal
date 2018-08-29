@@ -14,20 +14,19 @@ func main() {
 	WebServer()
 }
 
-// SetupConfig loads config and begins watching for modification for values
+// SetupConfig loads configuration file and watched for modifications
 func SetupConfig() {
 	viper.SetConfigName(cfgName)
 	viper.AddConfigPath(".")
 	err := viper.ReadInConfig()
 	if err != nil {
-		log.Println("Unable to find configuration file")
-		return
+		log.Fatal("Failed to find configuration file")
 	}
-	log.Println("Found config " + cfgName)
+	log.Println("Successfully found configutation file " + cfgName)
 
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
-		log.Println("Configuration file modified - Restarting connection...")
+		log.Printf("Configuration file modified\nRestarting connection...")
 		ConnDB(0)
 	})
 }

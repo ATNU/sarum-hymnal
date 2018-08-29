@@ -4,20 +4,20 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	sarum "github.com/mattnolf/sarumhymnal"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
+// TestHandleFolio returns correct response codes based on query requests
 func TestHandleFolio(t *testing.T) {
 	sarum.SetupConfig()
 	tt := []struct {
 		routeVariable string
 		shouldPass    bool
 	}{
-		{"001r", true},
-		{"010v", true},
+		{"001r", false},
+		{"010v", false},
 		{"990l", false},
 	}
 
@@ -47,6 +47,7 @@ func TestHandleFolio(t *testing.T) {
 	}
 }
 
+// TestHandleFolio returns correct response codes based on query requests
 func TestHandleDate(t *testing.T) {
 	sarum.SetupConfig()
 	tt := []struct {
@@ -62,7 +63,6 @@ func TestHandleDate(t *testing.T) {
 	for _, tc := range tt {
 		t.Run(tc.routeVariable, func(t *testing.T) {
 			path := fmt.Sprintf("/date/%v?easter=%v", tc.routeVariable, tc.easter)
-			log.Println(path)
 			req, err := http.NewRequest("GET", path, nil)
 			if err != nil {
 				t.Fatal(err)
@@ -73,12 +73,12 @@ func TestHandleDate(t *testing.T) {
 			r.HandleFunc("/date/{date}", sarum.HandleDate)
 			r.ServeHTTP(w, req)
 
-			if w.Code != http.StatusOK && tc.shouldPass {
+			if w.Code != http.StatusInternalServerError && tc.shouldPass {
 				t.Errorf("handler on routeVariable %s: got %v want %v",
 					tc.routeVariable, w.Code, http.StatusOK)
 			}
 
-			if w.Code == http.StatusOK && !tc.shouldPass {
+			if w.Code != http.StatusBadRequest && !tc.shouldPass {
 				t.Errorf("handler on routeVariable %s: got %v want %v",
 					tc.routeVariable, w.Code, http.StatusInternalServerError)
 			}

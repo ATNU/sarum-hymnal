@@ -1,11 +1,11 @@
 {
     "postgres":{
-        "timeoutattempt": 1,
+        "maxtimeoutattempt": 2,
         "account": {
             "user": "postgres",
             "password": "pass",
             "dbname": "sarumhymnal",
-            "schema": "webserver"
+            "schema": "sarumhymnal"
         },
         "conn": {
             "host": "localhost",
@@ -14,7 +14,6 @@
         }
     },
     "host":{
-        "addr": "localhost:8080",
         "timeout": {
             "write": 15,
             "read": 15,

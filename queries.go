@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "database/sql"
+	"database/sql"
 	"log"
 	"time"
 )
@@ -50,20 +50,20 @@ type SarumHymnal struct {
 // Returns:
 // - Response data containing a SarumHymnal struct for each office
 // - error any errors encountered are propagated along with empty response
-func QueryDate(d *time.Time) (map[string]SarumHymnal, error) {
-	psalter, err := QueryDatePsalter(d)
+func QueryDate(db *sql.DB, d, e *time.Time) (map[string]SarumHymnal, error) {
+	psalter, err := QueryDatePsalter(db, d)
 	if err != nil {
 		return nil, err
 	}
-	temporal, err := QueryDateTemporal(d)
+	temporal, err := QueryDateTemporal(db, d)
 	if err != nil {
 		return nil, err
 	}
-	sanctoral, err := QueryDateSanctoral(d)
+	sanctoral, err := QueryDateSanctoral(db, d)
 	if err != nil {
 		return nil, err
 	}
-	_, err = QueryDateCompline(d)
+	_, err = QueryDateCompline(db, d)
 	if err != nil {
 		return nil, err
 	}
@@ -89,15 +89,14 @@ func QueryDate(d *time.Time) (map[string]SarumHymnal, error) {
 // Returns:
 // - []SarumHymnal Results from hymns described on the specified folio
 // - error Any errors received are propagated
-func QueryFolio(folio string) ([]SarumHymnal, error) {
+func QueryFolio(db *sql.DB, folio string) ([]SarumHymnal, error) {
 	query := `
 		SELECT * FROM sarumhymnal.entry
 		WHERE sarumhymnal.entry.folio = $1
 	`
 
-	r, err := QueryDB(query, folio)
+	r, err := QueryDB(db, query, folio)
 	if err != nil {
-		log.Println(err)
 		return nil, err
 	}
 	defer r.Close()
@@ -105,7 +104,10 @@ func QueryFolio(folio string) ([]SarumHymnal, error) {
 	s := make([]SarumHymnal, 0)
 	for r.Next() {
 		h := new(SarumHymnal)
-		r.Scan(&h.Image, &h.Folio, &h.Staves, &h.Hymn, &h.FirstLine, &h.Melody, &h.Cycle)
+		err := r.Scan(&h.Image, &h.Folio, &h.Staves, &h.Hymn, &h.FirstLine, &h.Melody, &h.Cycle)
+		if err != nil {
+			return nil, err
+		}
 		s = append(s, *h)
 	}
 	return s, nil
@@ -113,10 +115,11 @@ func QueryFolio(folio string) ([]SarumHymnal, error) {
 
 // QueryDatePsalter performs a query on the Psalter cycle
 // Parameters:
-// - string date
+// - *sql.DB database connection
+// - *time.Time query date
 //
 // Returns a slice of Hymns and propagates any errors
-func QueryDatePsalter(t *time.Time) (map[int]SarumHymnal, error) {
+func QueryDatePsalter(db *sql.DB, t *time.Time) (map[int]SarumHymnal, error) {
 	query := `
 	SELECT matins, lauds, prime, terce, sext, none, vespers FROM sarumhymnal.psalter
 	WHERE sarumhymnal.psalter.desc = $1
@@ -125,7 +128,7 @@ func QueryDatePsalter(t *time.Time) (map[int]SarumHymnal, error) {
 		query = query + ` OR sarumhymnal.psalter.desc = '` + val + `'`
 	} */
 
-	r, err := QueryDB(query, t.Weekday().String())
+	r, err := QueryDB(db, query, t.Weekday().String())
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +153,10 @@ func QueryDatePsalter(t *time.Time) (map[int]SarumHymnal, error) {
 			`
 
 	for idx := range res {
-		r, err := QueryDB(query, res[idx].Hymn)
+		log.Println(query)
+		log.Println(res[idx].Hymn)
+
+		r, err := QueryDB(db, query, res[idx].Hymn)
 		if err != nil {
 			return nil, err
 		}
@@ -171,7 +177,7 @@ func QueryDatePsalter(t *time.Time) (map[int]SarumHymnal, error) {
 // Returns:
 // - map[int]SarumHymnal Hymns sung at each office (key)
 // - error any errors encountered along with nil map
-func QueryDateTemporal(t *time.Time) (map[int]SarumHymnal, error) {
+func QueryDateTemporal(db *sql.DB, t *time.Time) (map[int]SarumHymnal, error) {
 	// TODO: Implement
 	return map[int]SarumHymnal{}, nil
 }
@@ -183,13 +189,13 @@ func QueryDateTemporal(t *time.Time) (map[int]SarumHymnal, error) {
 // Returns:
 // - map[int]SarumHymnal Hymns sung at each office (key)
 // - error any errors encountered along with nil map
-func QueryDateSanctoral(t *time.Time) (map[int]SarumHymnal, error) {
+func QueryDateSanctoral(db *sql.DB, t *time.Time) (map[int]SarumHymnal, error) {
 	log.Println("Running query...")
 	query := `
 	SELECT common, vespers1, matins, lauds, vespers2 FROM sarumhymnal.sanctoral
 	WHERE sarumhymnal.sanctoral.month = $1 AND sarumhymnal.sanctoral.day = $2
 	`
-	r, err := QueryDB(query, int(t.Month()), t.Day())
+	r, err := QueryDB(db, query, int(t.Month()), t.Day())
 	if err != nil {
 		return nil, err
 	}
@@ -214,7 +220,10 @@ func QueryDateSanctoral(t *time.Time) (map[int]SarumHymnal, error) {
 				FROM sarumhymnal.common
 				WHERE sarumhymnal.common.abbrev = $1
 				`
-				r, err := QueryDB(query, sanc.Common)
+
+				//dateRange := CHECK t fits within range start_day-start_month < t < end_day-end_month
+
+				r, err := QueryDB(db, query, sanc.Common)
 				if err != nil {
 					return nil, err
 				}
@@ -235,7 +244,7 @@ func QueryDateSanctoral(t *time.Time) (map[int]SarumHymnal, error) {
 			WHERE sarumhymnal.entry.hymn = $1
 			`
 	for idx := range res {
-		r, err := QueryDB(query, res[idx].Hymn)
+		r, err := QueryDB(db, query, res[idx].Hymn)
 		if err != nil {
 			return nil, err
 		}
@@ -256,7 +265,7 @@ func QueryDateSanctoral(t *time.Time) (map[int]SarumHymnal, error) {
 // Returns:
 // - map[int]SarumHymnal Hymns sung at each office (key)
 // - error any errors encountered along with nil map
-func QueryDateCompline(t *time.Time) (map[int]SarumHymnal, error) {
+func QueryDateCompline(db *sql.DB, t *time.Time) (map[int]SarumHymnal, error) {
 	// TODO: Implement
 	return map[int]SarumHymnal{}, nil
 }

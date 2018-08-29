@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	_ "github.com/lib/pq" //Drivers required for postgres
 	"github.com/spf13/viper"
@@ -9,24 +10,22 @@ import (
 	"time"
 )
 
-var db *sql.DB
-
 // ConnDB initialises a new connection to Postgres
 // Parameters:
 // - int retry attempt
 //
 // Unsuccessful connection attempts are reattempted by method of exponential backoff
-func ConnDB(n int) {
+func ConnDB(n int) (*sql.DB, error) {
 	if n > 0 {
-		if n >= viper.GetInt("postgres.timeoutattempt") {
-			log.Fatal("Max attempts exceeded, shutting down")
+		if n >= viper.GetInt("postgres.maxtimeoutattempt") {
+			log.Println("Could not connect to postgres: Max attempts exceeded")
 		}
-		log.Println("Attempting to reconnect to postgres: attempt", n)
+		log.Println("Attempting to reconnect to postgres: Attempt", n)
+		return nil, errors.New("Could not connect to postgres")
 	}
 
-	var err error
 	log.Println("Attempting to connect to postgres")
-	db, err = sql.Open("postgres", connName())
+	db, err := sql.Open("postgres", connName())
 	if err != nil {
 		log.Println(err)
 		time.Sleep(time.Duration(5*n) * time.Second)
@@ -35,30 +34,39 @@ func ConnDB(n int) {
 	err = db.Ping()
 	if err != nil {
 		log.Println(err)
-		time.Sleep(5 * time.Second)
+		time.Sleep(time.Duration(5*n) * time.Second)
 		ConnDB(n + 1)
 	} else {
 		log.Println("Successfully connected to postgres")
 	}
+	return db, nil
 }
 
-// QueryDB queries postgres using shared Postgres connection
-// If no connection is available, a new Postgres connection request is invoked
+// QueryDB queries postgres, first testing that the connection is valid and invoking a connection request if invalid
 // Parameters:
+// - *sql.DB postgres database connection
 // - string query
 // - ...Interface{} query arguments
 //
 // Returns:
 // - sql.Rows retreived rows
 // - error any errors propagated by query
-func QueryDB(q string, args ...interface{}) (*sql.Rows, error) {
+func QueryDB(db *sql.DB, q string, args ...interface{}) (*sql.Rows, error) {
 	if db == nil {
-		ConnDB(1)
+		log.Println("In")
+		var err error
+		db, err = ConnDB(0)
+		if err != nil {
+			return nil, err
+		}
 	}
 	err := db.Ping()
 	if err != nil {
 		log.Println(err)
-		ConnDB(1)
+		db, err = ConnDB(1)
+		if err != nil {
+			return nil, err
+		}
 	}
 	return db.Query(q, args...)
 }

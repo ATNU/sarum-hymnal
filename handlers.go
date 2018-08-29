@@ -9,23 +9,37 @@ import (
 	"time"
 )
 
-// HandleDate handles a folio query and returns a JSON object containing sarum hymnal hymn metadata
+// HandleDate handles a folio query and returns JSON data of each hymn described on folio
 // Response served as application/JSON with format (eg):
-//	{
-//		"h1": {
-//			"meta": "bla"
-//		}
-//	},
+// {
+//    "[name]": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    },
+//    ...
+// }
 //
 // Any errors generated will be returned to client
 func HandleDate(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.Header.Get("date")+"Date request received with param:", mux.Vars(r)["date"])
+	log.Println("Date request received with param:", mux.Vars(r)["date"])
 	var err error
 	if easter := r.URL.Query()["easter"]; len(easter) > 0 {
+		log.Println("In")
 		if e, err := time.Parse(time.RFC3339, easter[0]); err == nil {
 			if t, err := time.Parse(time.RFC3339, mux.Vars(r)["date"]); err == nil {
-				h, err := QueryDatePsalter(&t)
-				_ = e
+				db, err := ConnDB(0)
+				if err != nil {
+					log.Println(err)
+					w.WriteHeader(http.StatusInternalServerError)
+					return
+				}
+				h, err := QueryDate(db, &t, &e)
 				if err != nil {
 					log.Println(err)
 					w.WriteHeader(http.StatusInternalServerError)
@@ -37,33 +51,113 @@ func HandleDate(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
-		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
-		return
 	}
-	log.Println("No Easter supplied")
 	w.WriteHeader(http.StatusBadRequest)
 	return
 }
 
 // HandleFolio handles a folio query and returns a JSON object containing sarum hymnal hymn metadata
 // Response served as application/JSON with format (eg):
-//	{
-//		"h1": {
-//			"meta": "bla"
-//		}
-//	},
+// {
+//    "matins": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    },
+//    "lauds": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    },
+//    "prime": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    },
+//    "terce": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    },
+//    "sext": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    },
+//    "none": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    },
+//    "vespers1": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    },
+//    "vespers2": {
+//        "image": "[image]"
+//        "folio": "[folio"
+//        "staves": "[staves]"
+//        "hymn": "[hymn]"
+//        "clef": "[clef]"
+//        "firstLine" "[firstline"
+//        "melody": "[melody]"
+//        "cycle": "[cycle]"
+//    }
+//}
 //
 // Any errors generated will be returned to client
 func HandleFolio(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.Header.Get("date")+"Page request received with param:", mux.Vars(r)["folio"])
+	log.Println("Page request received with param:", mux.Vars(r)["folio"])
 
 	if m, _ := regexp.MatchString("[0-9]{3}[r|v]{1}", mux.Vars(r)["folio"]); m != true {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("400 - Invalid folio query!"))
 		return
 	}
-	h, err := QueryFolio(mux.Vars(r)["folio"])
+	db, err := ConnDB(0)
+	if err != nil {
+		log.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	h, err := QueryFolio(db, mux.Vars(r)["folio"])
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("500 - Something bad happened!"))
