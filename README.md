@@ -85,88 +85,102 @@ Invalid date requests will return ```400``` response.
 {
     "matins": {
         "image": "[image]"
-        "folio": "[folio"
+        "folio": "[folio]"
         "staves": "[staves]"
         "hymn": "[hymn]"
         "clef": "[clef]" 
-        "firstLine" "[firstline" 
+        "firstLine" "[firstline]" 
         "melody": "[melody]"
         "cycle": "[cycle]"
     },
     "lauds": {
         "image": "[image]"
-        "folio": "[folio"
+        "folio": "[folio]"
         "staves": "[staves]"
         "hymn": "[hymn]"
         "clef": "[clef]" 
-        "firstLine" "[firstline" 
+        "firstLine" "[firstline]" 
         "melody": "[melody]"
         "cycle": "[cycle]"
     },
     "prime": {
         "image": "[image]"
-        "folio": "[folio"
+        "folio": "[folio]"
         "staves": "[staves]"
         "hymn": "[hymn]"
         "clef": "[clef]" 
-        "firstLine" "[firstline" 
+        "firstLine" "[firstline]" 
         "melody": "[melody]"
         "cycle": "[cycle]"
     },
     "terce": {
         "image": "[image]"
-        "folio": "[folio"
+        "folio": "[folio]"
         "staves": "[staves]"
         "hymn": "[hymn]"
         "clef": "[clef]" 
-        "firstLine" "[firstline" 
+        "firstLine" "[firstline]" 
         "melody": "[melody]"
         "cycle": "[cycle]"
     },
     "sext": {
         "image": "[image]"
-        "folio": "[folio"
+        "folio": "[folio]"
         "staves": "[staves]"
         "hymn": "[hymn]"
         "clef": "[clef]" 
-        "firstLine" "[firstline" 
+        "firstLine" "[firstline]" 
         "melody": "[melody]"
         "cycle": "[cycle]"
     },
     "none": {
         "image": "[image]"
-        "folio": "[folio"
+        "folio": "[folio]"
         "staves": "[staves]"
         "hymn": "[hymn]"
         "clef": "[clef]" 
-        "firstLine" "[firstline" 
+        "firstLine" "[firstline]" 
         "melody": "[melody]"
         "cycle": "[cycle]"
     },
     "vespers1": {
         "image": "[image]"
-        "folio": "[folio"
+        "folio": "[folio]"
         "staves": "[staves]"
         "hymn": "[hymn]"
         "clef": "[clef]" 
-        "firstLine" "[firstline" 
+        "firstLine" "[firstline]" 
         "melody": "[melody]"
         "cycle": "[cycle]"
     },
     "vespers2": {
         "image": "[image]"
-        "folio": "[folio"
+        "folio": "[folio]"
         "staves": "[staves]"
         "hymn": "[hymn]"
         "clef": "[clef]" 
-        "firstLine" "[firstline" 
+        "firstLine" "[firstline]" 
         "melody": "[melody]"
         "cycle": "[cycle]"
     }
 }
 ```
 
+### A note on Postgres
+
+A SQL dump ```db.sql``` is provided to rebuild schema containing some sample data that may be used.
+
+To reload the script into a fresh Postgres DB use:
+```sh
+psql -d newdb -f db.sql
+```
 
 
+###### Relational Diagram:
+[Here is a link to relational diagram]
+
+
+
+[Here is a link to relational diagram]:https://mermaidjs.github.io/mermaid-live-editor/#/view/eyJjb2RlIjoiZ3JhcGggVERcbiAgICBlbnRyeVxuICAgIGltYWdlXG4gICAgaHltbiAtLT4gcHNhbHRlclxuICAgIGh5bW4gLS0-IGNvbW1vblxuICAgIGh5bW4gLS0-IHNhbmN0b3JhbFxuICAgIFxuICAgIFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifX0
 [PostgreSQL]: https://www.postgresql.org/
 [go]: https://golang.org/

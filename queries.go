@@ -31,14 +31,14 @@ var office = map[int]string{
 
 // SarumHymnal representation of sarumhymnal hymn
 type SarumHymnal struct {
-	Image     string `json:"image,omitempty"`
-	Folio     string `json:"folio,omitempty"`
-	Staves    string `json:"staves,omitempty"`
-	Hymn      string `json:"name,omitempty"`
-	Clef      string `json:"clef,omitempty"`
-	FirstLine string `json:"first_line,omitempty"`
-	Melody    string `json:"melody,omitempty"`
-	Cycle     string `json:"cycle,omitempty"`
+	Image     string `json:"image"`
+	Folio     string `json:"folio"`
+	Staves    string `json:"staves"`
+	Hymn      string `json:"name"`
+	Clef      string `json:"clef"`
+	FirstLine string `json:"first_line"`
+	Melody    string `json:"melody"`
+	Cycle     string `json:"cycle"`
 }
 
 // QueryDate orchestrates a number of queries to determine the hymns chanted at each office

@@ -22,7 +22,7 @@ func SetupConfig() {
 	if err != nil {
 		log.Fatal("Failed to find configuration file")
 	}
-	log.Println("Successfully found configutation file " + cfgName)
+	log.Println("Successfully found configuration file " + cfgName)
 
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
