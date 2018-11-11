@@ -1230,4 +1230,3 @@ ALTER TABLE ONLY sarumhymnal.psalter
 --
 -- PostgreSQL database dump complete
 --
-

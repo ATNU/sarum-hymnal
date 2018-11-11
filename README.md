@@ -1,7 +1,7 @@
 *To build cantaloupe*
 
 ```
-./src/cantaloupe/runBuild.sh
+./services/cantaloupe/runBuild.sh
 ```
 
 *Run dev stack*

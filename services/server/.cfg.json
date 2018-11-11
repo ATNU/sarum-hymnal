@@ -1,14 +1,14 @@
 {
     "postgres":{
-        "maxtimeoutattempt": 2,
+        "maxtimeoutattempt": 20,
         "account": {
             "user": "postgres",
-            "password": "pass",
-            "dbname": "sarumhymnal",
+            "password": "PnvaG9LhCb8DXPbp",
+            "dbname": "postgres",
             "schema": "sarumhymnal"
         },
         "conn": {
-            "host": "localhost",
+            "host": "postgres",
             "port": "5432",
             "sslmode":"disable"
         }
@@ -21,6 +21,6 @@
             "cancel": 60 
         },
         "domain": "localhost",
-        "port": ":8080"
+        "port": ":4100"
     }
 }
