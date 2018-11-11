@@ -24,11 +24,14 @@ services:
      - ./data/minio:/data
     command: server /data
   postgres:
-    image: postgres:10.3
+    image: atnu-db
+    build:
+      context: ./
+      dockerfile: services/postgres/Dockerfile
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres_example
+      POSTGRES_PASSWORD: PnvaG9LhCb8DXPbp
     networks:
       - public
   adminer:
@@ -50,6 +53,15 @@ services:
     command: "tail -f /dev/null"
     ports:
       - "4200:4200"
+    networks:
+      - public
+  server:
+    image: atnu-webserver
+    build:
+      context: ./
+      dockerfile: services/server/Dockerfile
+    ports:
+      - "4100:4100"
     networks:
       - public
 
