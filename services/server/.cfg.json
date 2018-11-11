@@ -20,7 +20,7 @@
             "idle": 60,
             "cancel": 60 
         },
-        "domain": "localhost",
+        "domain": "0.0.0.0",
         "port": ":4100"
     }
 }

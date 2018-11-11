@@ -11,11 +11,11 @@ ADD ./services/server ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /app .
 
-FROM scratch
+FROM alpine:3.8
 
 COPY --from=builder /app ./
 COPY ./services/server/.cfg.json ./
 
-EXPOSE 8080:8080
+EXPOSE 4100:4100
 
 ENTRYPOINT [ "./app" ]
