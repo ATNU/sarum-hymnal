@@ -1,0 +1,17 @@
+sudo: required
+services:
+- docker
+language: go
+go: 1.10.x
+go_import_path: github.com/mattnolf/sarumhymnal
+before-install:
+- docker build -t mattnolf/sarumhymnal .
+script:
+- go test -v ./...
+notifications:
+  slack:
+    rooms:
+      secure: ZPpEpPO8zMonzY75l+z9PCOQazhFNrhBM9w9RoNx4un8oFHhKf2xjuVmQe5nNuMIcOmmoHrRewhoO6+o0lvcyCHM8dgDI/8g59xE4Ph8jYiuCYFiMAwWRaALFDIR3cAL6K8laYz5/AM/mrwjWJzDJz3e2lGwNaczmyP93HAIyb9Uw9nQfqvYe67dW2OOkwfk0tOuo8HOVTW0jS7XVHd9SbUpHjzIRlSuk5b5osukT/gx5RX7g8Ic+UQVr6CDpRT8g94LJk/fGPDkMR1v6rAKOvqBiXksWNK0g6Qo6TwPsFTQhymkEYdrKoIg7JEn9IaJ1rKxuPqoq02DlqxU+v6kiOHCm6EROigOnASUei5eCN70stcbMstuQCVxgRhhRmWycWHMe1slOOc9u2VV/5re8q99HFYA3XRUfex8wlzDqo5YdfXwFb7PSNL0f09cqStl97Ru6j5OSaCL1MEOWmMcRCiiLqRuEDOORnK5Ueh1BOtKvi0w6FIvFhUjP7cIs+2yW9+MaUW7OYRa/FJXkCGWAZcl+9bdRda3fDWWP4XRIF39n5tjmWp0D0EvszORTrHYsNa03wBJPujLJ0gjJ8jKhgutifFZln30k61+GRgKZCE7W3hP1L13CUcjN6xt9xtQDV4EdYeh4i1qE2EmB29p1GaR5yyOijcilz1eNyg+WOk=
+    on_success: always
+    on_failure: always
+    
