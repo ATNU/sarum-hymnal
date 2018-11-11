@@ -8,9 +8,9 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 // syntax. However, rollup creates a synthetic default module and we thus need to import it using
 // the `default as` syntax.
 import * as _moment from 'moment';
-import {MatDatepickerInputEvent} from "@angular/material";
+import {MatDatepickerInputEvent} from '@angular/material';
 // tslint:disable-next-line:no-duplicate-imports
-//import {default as _rollupMoment} from 'moment';
+// import {default as _rollupMoment} from 'moment';
 
 const moment = _moment;
 
@@ -43,7 +43,7 @@ export class CalendarComponent implements OnInit {
   computus: Object;
 
   dateChange(event: MatDatepickerInputEvent<Date>) {
-    this.computus = new Computus(moment(event.value).year())
+    this.computus = new Computus(moment(event.value).year());
   }
 
   constructor() { }

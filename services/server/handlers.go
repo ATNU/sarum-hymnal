@@ -2,11 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"regexp"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 // HandleDate handles a folio query and returns JSON data of each hymn described on folio
@@ -27,6 +28,9 @@ import (
 //
 // Any errors generated will be returned to client
 func HandleDate(w http.ResponseWriter, r *http.Request) {
+
+	enableCors(&w)
+
 	log.Println("Date request received with param:", mux.Vars(r)["date"])
 	var err error
 	if easter := r.URL.Query()["easter"]; len(easter) > 0 {
@@ -146,6 +150,8 @@ func HandleDate(w http.ResponseWriter, r *http.Request) {
 func HandleFolio(w http.ResponseWriter, r *http.Request) {
 	log.Println("Page request received with param:", mux.Vars(r)["folio"])
 
+	enableCors(&w)
+
 	if m, _ := regexp.MatchString("[0-9]{3}[r|v]{1}", mux.Vars(r)["folio"]); m != true {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("400 - Invalid folio query!"))
@@ -166,4 +172,8 @@ func HandleFolio(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	en := json.NewEncoder(w)
 	en.Encode(h)
+}
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
