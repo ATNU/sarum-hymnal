@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class AppService {
 
-    currentFolio: string;
+    private folio: Subject<string>;
 
     constructor() {
-        this.currentFolio = null;
+        this.folio = new Subject<string>();
     }
 
     setFolio(folio: string) {
-        this.currentFolio = folio;
+        this.folio.next(folio);
+    }
+
+    getFolio() {
+        return this.folio.asObservable();
     }
 }

@@ -13,9 +13,6 @@ export class MetadataComponent implements OnInit {
   constructor(private metadataService: MetadataService, private appService: AppService) { }
 
   getFolio(folio: string) {
-
-    console.log(this.appService.currentFolio);
-
     this.metadataService.getFolio(folio).subscribe(
       data => { this.metadata = data; },
       err => console.error(err)
@@ -23,7 +20,10 @@ export class MetadataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getFolio(this.appService.currentFolio);
+    this.appService.getFolio().subscribe((data) => {
+      console.log(data);
+      this.getFolio(data);
+    });
   }
 
 }
