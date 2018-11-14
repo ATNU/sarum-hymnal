@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MetadataService } from './metadata.service';
+import { AppService } from './../app.service';
 
 @Component({
   selector: 'app-metadata',
@@ -8,20 +9,21 @@ import { MetadataService } from './metadata.service';
 })
 export class MetadataComponent implements OnInit {
 
-  public metadata: any;
-  
-  constructor(private _metadataService: MetadataService) { }
+  public metadata: object;
+  constructor(private metadataService: MetadataService, private appService: AppService) { }
 
   getFolio(folio: string) {
-    this._metadataService.getFolio(folio).subscribe(
-      data => { this.metadata = data},
-      err => console.error(err),
-      () => console.log('done loading metadata')
+
+    console.log(this.appService.currentFolio);
+
+    this.metadataService.getFolio(folio).subscribe(
+      data => { this.metadata = data; },
+      err => console.error(err)
     );
   }
 
   ngOnInit() {
-    this.getFolio('001r');
+    this.getFolio(this.appService.currentFolio);
   }
 
 }

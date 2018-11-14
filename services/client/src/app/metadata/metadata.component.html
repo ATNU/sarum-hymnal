@@ -1,15 +1,25 @@
 <mat-tab-group id="metadata-viewer">
-    <mat-tab label="Info">
+    <mat-tab label="Hymns">
         <div class="page-metadata metadata-content">
-            <h1>Metadata about the page</h1>
+            <h3>Hymns</h3>
+            <div class="hymn-info" *ngFor="let hymn of metadata">
+                <strong><small>Name</small></strong>
+                <p>{{hymn.name}}</p>
+                <strong><small>Cycle</small></strong>
+                <p>{{hymn.cycle}}</p>
+                <strong> <small>Staves</small></strong>
+                <p>{{hymn.staves}}</p>
+                <strong> <small>Melody</small></strong>
+                <p>{{hymn.melody}}</p>
+            </div>
         </div>
     </mat-tab>
-    <mat-tab label="Score">
+    <mat-tab label="Score" disabled>
         <div class="score-metadata metadata-content">
             <h1>A playable score from the MEI</h1>
         </div>
     </mat-tab>
-    <mat-tab label="Text">
+    <mat-tab label="Text" disabled>
         <div class="text-metadata metadata-content">
             <h1>Rendering of the TEI</h1>
         </div>

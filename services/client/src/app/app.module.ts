@@ -14,6 +14,7 @@ import { AboutModule } from './about/about.module';
 import { MetadataModule } from './metadata/metadata.module';
 import { ViewerModule } from './viewer/viewer.module';
 import { AppComponent } from './app.component';
+import { AppService } from './app.service';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -33,9 +34,14 @@ import { AppRoutingModule } from './app-routing.module';
     ViewerModule,
     AppRoutingModule
   ],
-  declarations: [AppComponent],
-  providers: [
+  declarations: [
+    AppComponent
   ],
-  bootstrap: [AppComponent]
+  providers: [
+    AppService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
