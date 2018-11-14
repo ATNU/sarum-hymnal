@@ -21,7 +21,6 @@ export class MetadataComponent implements OnInit {
 
   ngOnInit() {
     this.appService.getFolio().subscribe((data) => {
-      console.log(data);
       this.getFolio(data);
     });
   }

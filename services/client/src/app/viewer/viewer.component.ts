@@ -15,8 +15,6 @@ export class ViewerComponent implements OnInit {
 
     const service = this.appService;
 
-    console.log(service);
-
     OpenSeadragon.DEFAULT_SETTINGS.timeout = 60000; // or whatever number
 
     const viewer = OpenSeadragon({
