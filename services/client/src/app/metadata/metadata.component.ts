@@ -23,6 +23,14 @@ export class MetadataComponent implements OnInit {
     this.appService.getFolio().subscribe((data) => {
       this.getFolio(data);
     });
+
+    this.appService.getDate().subscribe((data) => {
+      console.log(data);
+    });
+
+    this.appService.getComputus().subscribe((data) => {
+      console.log(data);
+    });
   }
 
 }

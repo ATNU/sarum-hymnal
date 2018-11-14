@@ -9,6 +9,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 // the `default as` syntax.
 import * as _moment from 'moment';
 import {MatDatepickerInputEvent} from '@angular/material';
+import { AppService } from '@app/app.service';
 // tslint:disable-next-line:no-duplicate-imports
 // import {default as _rollupMoment} from 'moment';
 
@@ -40,16 +41,19 @@ export class CalendarComponent implements OnInit {
 
   date = moment([1600, 0, 1]);
   control = new FormControl({value: this.date, disabled: true });
-  computus: Object;
+  computus: Computus;
 
   dateChange(event: MatDatepickerInputEvent<Date>) {
     this.computus = new Computus(moment(event.value).year());
+    this.appService.setDate(event.value);
+    this.appService.setComputus(this.computus);
   }
 
-  constructor() { }
+  constructor(private appService: AppService) { }
 
   ngOnInit() {
     this.computus = new Computus(this.date.year());
+    this.appService.setComputus(this.computus);
   }
 
 }
