@@ -53,6 +53,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.computus = new Computus(this.date.year());
+    this.appService.setDate(this.date.toDate());
     this.appService.setComputus(this.computus);
   }
 

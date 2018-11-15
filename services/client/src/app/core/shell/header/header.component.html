@@ -7,10 +7,14 @@
             <span class="title">{{title}}</span>
         </div>
         <div fxHide.lt-md>
-            <strong translate>APP_NAME</strong>
+            <strong translate>Sarum Hymnal</strong>
             <button mat-button routerLink="/home" routerLinkActive="active">
-                <mat-icon>home</mat-icon>
-                <span translate>Home</span>
+                <mat-icon>book</mat-icon>
+                <span translate>Hymnal</span>
+            </button>
+            <button mat-button routerLink="/calendar" routerLinkActive="active">
+                <mat-icon>event</mat-icon>
+                <span translate>Calendar</span>
             </button>
             <button mat-button routerLink="/about" routerLinkActive="active">
                 <mat-icon>info</mat-icon>
@@ -18,13 +22,13 @@
             </button>
         </div>
         <span fxFlex></span>
-        <button mat-icon-button [matMenuTriggerFor]="languageMenu">
+        <!-- <button mat-icon-button [matMenuTriggerFor]="languageMenu">
             <mat-icon>language</mat-icon>
         </button>
         <mat-menu #languageMenu="matMenu">
             <button mat-menu-item *ngFor="let language of languages" (click)="setLanguage(language)">
                 {{language}}
             </button>
-        </mat-menu>
+        </mat-menu> -->
     </mat-toolbar>
 </mat-card>

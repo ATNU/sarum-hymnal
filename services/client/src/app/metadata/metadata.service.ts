@@ -14,7 +14,7 @@ export class MetadataService {
         return this.http.get('/folio/' + folio);
     }
 
-    getDate(date: string) {
-        return this.http.get('/date/' + date);
+    getDate(date: string, easter: string) {
+        return this.http.get('/date/' + date + '?easter=' + easter);
     }
 }
