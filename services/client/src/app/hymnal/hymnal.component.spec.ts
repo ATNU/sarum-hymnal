@@ -6,12 +6,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { MaterialModule } from '@app/material.module';
-import { HomeComponent } from './home.component';
-import { QuoteService } from './quote.service';
+import { HymnalComponent } from './hymnal.component';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('HymnalComponent', () => {
+  let component: HymnalComponent;
+  let fixture: ComponentFixture<HymnalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,14 +22,14 @@ describe('HomeComponent', () => {
           SharedModule,
           HttpClientTestingModule
         ],
-        declarations: [HomeComponent],
-        providers: [QuoteService]
+        declarations: [HymnalComponent],
+        providers: []
       })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(HymnalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

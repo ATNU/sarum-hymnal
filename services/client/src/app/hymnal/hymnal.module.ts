@@ -6,8 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { MaterialModule } from '@app/material.module';
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
+import { HymnalRoutingModule } from './hymnal-routing.module';
+import { HymnalComponent } from './hymnal.component';
 
 import { MetadataModule} from '@app/metadata/metadata.module';
 import { ViewerModule} from '@app/viewer/viewer.module';
@@ -21,13 +21,13 @@ import { CalendarModule } from '@app/calendar/calendar.module';
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
-    HomeRoutingModule,
+    HymnalRoutingModule,
     MetadataModule,
     ViewerModule,
     CalendarModule
   ],
   declarations: [
-    HomeComponent
+    HymnalComponent
   ]
 })
-export class HomeModule { }
+export class HymnalModule { }

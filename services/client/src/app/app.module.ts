@@ -8,7 +8,7 @@ import { MaterialModule } from './material.module';
 
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
-import { HomeModule } from './home/home.module';
+import { HymnalModule } from './hymnal/hymnal.module';
 import { CalendarModule } from './calendar/calendar.module';
 import { AboutModule } from './about/about.module';
 import { MetadataModule } from './metadata/metadata.module';
@@ -27,7 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
     MaterialModule,
     CoreModule,
     SharedModule,
-    HomeModule,
+    HymnalModule,
     CalendarModule,
     AboutModule,
     MetadataModule,
