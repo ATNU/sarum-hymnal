@@ -32,13 +32,6 @@ export class ViewerComponent implements OnInit {
       previousButton:     'previous',
     });
 
-    // viewer.addHandler('page', function(event: any) {
-    //   let folio = viewer.tileSources[event.page].split('_')[2];
-    //   folio = folio.split('.')[0];
-    //   appService.setFolio(folio);
-    //   appService.setCurrentPage(event.page);
-    // });
-
     this.appService.getCurrentPage().subscribe((page) => {
       viewer.goToPage(page);
     });

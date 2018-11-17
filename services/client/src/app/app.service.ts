@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { Computus } from 'ng-computus';
 import * as Images from '@assets/data/images.json';
 import * as _ from 'lodash';
@@ -9,15 +9,15 @@ export class AppService {
 
     private imageList: string[] = [];
     private totalPages = 0;
-    private currentPage: Subject<number>;
-    private folio: Subject<string>;
+    private currentPage: ReplaySubject<number>;
+    private folio: ReplaySubject<string>;
     private date: Subject<Date>;
     private computus: Subject<Computus>;
 
     constructor() {
 
-        this.currentPage = new Subject<number>();
-        this.folio = new  Subject<string>();
+        this.currentPage = new ReplaySubject<number>();
+        this.folio = new  ReplaySubject<string>();
         this.date = new Subject<Date>();
         this.computus = new  Subject<Computus>();
 
@@ -50,6 +50,7 @@ export class AppService {
     }
 
     setCurrentPage(currentPage: number) {
+        this.setFolio(this.imageList[currentPage].split('_')[2].split('.')[0]);
         this.currentPage.next(currentPage);
     }
 

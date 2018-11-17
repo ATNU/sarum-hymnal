@@ -9,13 +9,16 @@ import { AppService } from './../app.service';
 export class PagerComponent implements OnInit {
 
   totalPages: number;
-  currentPage = 0;
+  currentPage: number;
 
   constructor(private appService: AppService) { }
 
   ngOnInit() {
-    console.log();
-    this.totalPages = Number(this.appService.getTotalPages());
+    this.totalPages = this.appService.getTotalPages();
+
+    this.appService.getCurrentPage().subscribe((page) => {
+      this.currentPage = page;
+    });
   }
 
   public previousPage = function() {
