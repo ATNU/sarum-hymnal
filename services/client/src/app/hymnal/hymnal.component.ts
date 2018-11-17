@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -8,7 +9,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class HymnalComponent implements OnInit {
 
-  constructor() { }
+  constructor(public route: ActivatedRoute) { }
 
   ngOnInit() {
 

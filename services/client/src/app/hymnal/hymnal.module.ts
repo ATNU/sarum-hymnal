@@ -12,6 +12,7 @@ import { HymnalComponent } from './hymnal.component';
 import { MetadataModule} from '@app/metadata/metadata.module';
 import { ViewerModule} from '@app/viewer/viewer.module';
 import { CalendarModule } from '@app/calendar/calendar.module';
+import { PagerModule } from '@app/pager/pager.module';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { CalendarModule } from '@app/calendar/calendar.module';
     HymnalRoutingModule,
     MetadataModule,
     ViewerModule,
-    CalendarModule
+    CalendarModule,
+    PagerModule
   ],
   declarations: [
     HymnalComponent

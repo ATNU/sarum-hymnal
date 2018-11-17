@@ -1,0 +1,14 @@
+<div id="previous" class="pager-icon" [ngClass]="{disabled: currentPage === 0}" (click)="previousPage()">
+  <mat-icon>chevron_left</mat-icon>
+  <span class="label">Previous</span>
+</div>
+<div class="page-text" fxFlex="flex" fxLayout="column">
+  <div class="page-meta">
+    <span>{{currentPage+1}} of {{totalPages}}</span>
+    <span></span>
+</div>
+</div>
+<div id="next" class="pager-icon" [ngClass]="{disabled: currentPage === totalPages - 1}" (click)="nextPage()">
+  <mat-icon>chevron_right</mat-icon>
+  <span class="label">Next</span>
+</div>

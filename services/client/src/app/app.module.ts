@@ -13,6 +13,7 @@ import { CalendarModule } from './calendar/calendar.module';
 import { AboutModule } from './about/about.module';
 import { MetadataModule } from './metadata/metadata.module';
 import { ViewerModule } from './viewer/viewer.module';
+import { PagerModule } from './pager/pager.module';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
     AboutModule,
     MetadataModule,
     ViewerModule,
+    PagerModule,
     AppRoutingModule
   ],
   declarations: [

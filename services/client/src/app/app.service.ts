@@ -1,18 +1,60 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Computus } from 'ng-computus';
+import * as Images from '@assets/data/images.json';
+import * as _ from 'lodash';
 
 @Injectable()
 export class AppService {
 
+    private imageList: string[] = [];
+    private totalPages = 0;
+    private currentPage: Subject<number>;
     private folio: Subject<string>;
     private date: Subject<Date>;
     private computus: Subject<Computus>;
 
     constructor() {
-        this.folio = new Subject<string>();
+
+        this.currentPage = new Subject<number>();
+        this.folio = new  Subject<string>();
         this.date = new Subject<Date>();
-        this.computus = new Subject<Computus>();
+        this.computus = new  Subject<Computus>();
+
+        const imagePaths: string[] = [];
+
+        _.forEach(Images.default, function(image: string) {
+            imagePaths.push('http://localhost:8182/iiif/2/' + image + '/info.json');
+        });
+
+        this.imageList = imagePaths;
+        this.totalPages = imagePaths.length;
+        this.currentPage.next(0);
+        this.folio.next(imagePaths[0].split('_')[2].split('.')[0]);
+    }
+
+    setImageList(imageList: string[]) {
+        this.imageList = imageList;
+    }
+
+    getImageList() {
+        return this.imageList;
+    }
+
+    setTotalPages(totalPages: number) {
+        this.totalPages = totalPages;
+    }
+
+    getTotalPages() {
+        return this.totalPages;
+    }
+
+    setCurrentPage(currentPage: number) {
+        this.currentPage.next(currentPage);
+    }
+
+    getCurrentPage() {
+        return this.currentPage.asObservable();
     }
 
     setFolio(folio: string) {

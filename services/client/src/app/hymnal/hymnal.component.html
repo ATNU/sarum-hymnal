@@ -3,5 +3,6 @@
     <app-metadata></app-metadata>
 </mat-card>
 <mat-card class="calendar-card" fxHide fxShow.gt-sm ngClass.xs="fxClass-xs" ngClass.sm="fxClass-sm">
-    <app-calendar fxLayout="row"></app-calendar>
+    <app-pager *ngIf="route.snapshot['_routerState'].url === '/hymnal'" fxLayout="row"></app-pager>
+    <app-calendar *ngIf="route.snapshot['_routerState'].url === '/calendar'" fxLayout="row"></app-calendar>
 </mat-card>

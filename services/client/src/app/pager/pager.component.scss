@@ -1,0 +1,50 @@
+.pager-icon {
+    width: 85px;
+    height: 85px;
+    text-align: center;
+    line-height: 85px;
+    cursor: pointer;
+    position: relative;
+    background-color: #e50000;
+
+    mat-icon {
+        color: white;
+        font-size: 45px;
+        display: block;
+        width: 85px;
+        height: 65px;
+        line-height: 65px;
+    }
+
+    span.label {
+        color: white;
+        font-size: 12px;
+        display: block;
+        width: 85px;
+        height: 20px;
+        line-height: 20px;
+    }
+
+    &.disabled {
+       background-color: rgba(229, 0, 0, 0.5);
+       cursor: default;
+    }
+}
+
+.page-text {
+    width: calc(100% - 170px);
+    padding: 0 15px;
+    cursor: default;
+    text-align: center;
+
+    .page-meta {
+        span {
+          display: inline-block;
+          margin: 0 15px 0 0;
+          padding: 0;
+          height: 40px;
+          line-height: 40px;
+          font-weight: bold;
+        }
+      }
+}

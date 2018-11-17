@@ -7,7 +7,8 @@ import { HymnalComponent } from './hymnal.component';
 const routes: Routes = [
   Route.withShell([
     { path: '', redirectTo: '/hymnal', pathMatch: 'full' },
-    { path: 'hymnal', component: HymnalComponent, data: { title: extract('Hymnal') } }
+    { path: 'hymnal', component: HymnalComponent, data: { title: extract('Hymnal') } },
+    { path: 'calendar', component: HymnalComponent, data: { title: extract('Calendar') } }
   ])
 ];
 

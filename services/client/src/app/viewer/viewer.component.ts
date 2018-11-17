@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './../app.service';
+import * as Images from '@assets/data/images.json';
 import * as OpenSeadragon from 'openseadragon';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-viewer',
@@ -13,7 +15,7 @@ export class ViewerComponent implements OnInit {
 
   ngOnInit() {
 
-    const service = this.appService;
+    const appService = this.appService;
 
     OpenSeadragon.DEFAULT_SETTINGS.timeout = 60000; // or whatever number
 
@@ -25,19 +27,20 @@ export class ViewerComponent implements OnInit {
       minZoomLevel:       1,
       defaultZoomLevel:   1,
       sequenceMode:       true,
-      tileSources:   [
-        'http://localhost:8182/iiif/2/GB-Osj_MS60_001r.jpg/info.json',
-        'http://localhost:8182/iiif/2/GB-Osj_MS60_001v.jpg/info.json',
-        'http://localhost:8182/iiif/2/GB-Osj_MS60_002r.jpg/info.json',
-      ]
+      tileSources:        this.appService.getImageList(),
+      nextButton:         'next',
+      previousButton:     'previous',
     });
 
-    service.setFolio(viewer.tileSources[0].split('_')[2].split('.')[0]);
+    // viewer.addHandler('page', function(event: any) {
+    //   let folio = viewer.tileSources[event.page].split('_')[2];
+    //   folio = folio.split('.')[0];
+    //   appService.setFolio(folio);
+    //   appService.setCurrentPage(event.page);
+    // });
 
-    viewer.addHandler('page', function(event: any) {
-      let folio = viewer.tileSources[event.page].split('_')[2];
-      folio = folio.split('.')[0];
-      service.setFolio(folio);
+    this.appService.getCurrentPage().subscribe((page) => {
+      viewer.goToPage(page);
     });
   }
 }
