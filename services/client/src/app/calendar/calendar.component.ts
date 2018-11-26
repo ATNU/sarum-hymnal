@@ -39,7 +39,7 @@ export const MY_FORMATS = {
 })
 export class CalendarComponent implements OnInit {
 
-  date = moment([1600, 0, 1]);
+  date = moment();
   control = new FormControl({value: this.date, disabled: true });
   computus: Computus;
 

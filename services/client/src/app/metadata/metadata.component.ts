@@ -27,7 +27,7 @@ export class MetadataComponent implements OnInit {
 
   getDate(date: string, easter: string) {
     this.metadataService.getDate(date, easter).subscribe(
-      data => { this.metadata = data; },
+      data => { console.log(data); /*this.metadata = data;*/ },
       err => console.error(err)
     );
   }
