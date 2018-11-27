@@ -6,20 +6,20 @@ services:
       context: ./
       dockerfile: services/cantaloupe/Dockerfile
     ports:
-      - "8182:8182"
+      - "2400:8182"
     environment:
       - "AWS_DEFAULT_REGION=eu-west-1"
     networks:
-      - public
+      - sarum-hymnal
   minio:
     image: minio/minio
     ports:
-     - "9000:9000"
+     - "2500:9000"
     environment:
       - "MINIO_ACCESS_KEY=minio"
       - "MINIO_SECRET_KEY=minio-1234"
     networks:
-     - public
+     - sarum-hymnal
     volumes:
      - ./data/minio:/data
     command: server /data
@@ -32,15 +32,17 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: PnvaG9LhCb8DXPbp
+    ports:
+     - "2300:5432"
     networks:
-      - public
+      - sarum-hymnal
   adminer:
     image: adminer
     restart: always
     ports:
-      - "8080:8080"
+      - "2600:8080"
     networks:
-      - public
+      - publsarum-hymnalic
   create-minio-buckets:
     image: alpine
     volumes:
@@ -52,18 +54,18 @@ services:
       - "./services/client/:/usr/local/app"
     command: "tail -f /dev/null"
     ports:
-      - "4200:4200"
+      - "2100:4200"
     networks:
-      - public
+      - sarum-hymnal
   server:
     image: atnu-webserver
     build:
       context: ./
       dockerfile: services/server/Dockerfile
     ports:
-      - "4100:4100"
+      - "2200:4100"
     networks:
-      - public
+      - sarum-hymnal
 
 networks:
-  public:
+  sarum-hymnal:
