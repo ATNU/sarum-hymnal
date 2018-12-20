@@ -49,12 +49,12 @@ services:
      - ./data/minio:/data/
     command: ["sh", "-c", "[ -d /data/atnu-images ] || mkdir -p /data/atnu-images"]
   client:
-    image: node:8
-    volumes:
-      - "./services/client/:/usr/local/app"
-    command: "tail -f /dev/null"
+    image: atnu/sarum-client
+    build:
+      context: ./
+      dockerfile: services/client/Dockerfile
     ports:
-      - "2100:4200"
+      - "2100:80"
     networks:
       - sarum-hymnal
   server:

@@ -1,8 +1,8 @@
 <mat-tab-group id="metadata-viewer">
     <mat-tab label="Hymns">
-        <div class="page-metadata metadata-content">
+        <div *ngIf="folioMetadata" class="folio-metadata metadata-content">
             <h3>Hymns</h3>
-            <div class="hymn-info" *ngFor="let hymn of metadata">
+            <div class="hymn-info" *ngFor="let hymn of folioMetadata">
                 <strong><small>Name</small></strong>
                 <p>{{hymn.name}}</p>
                 <strong><small>Cycle</small></strong>
@@ -11,6 +11,38 @@
                 <p>{{hymn.staves}}</p>
                 <strong> <small>Melody</small></strong>
                 <p>{{hymn.melody}}</p>
+            </div>
+        </div>
+        <div *ngIf="dateMetadata" class="folio-metadata metadata-content">
+            <h3>Lauds</h3>
+            <div class="hymn-info">
+                <strong><small>Name</small></strong>
+                <p>{{dateMetadata.lauds.name}}</p>
+            </div>
+            <h3>Matins</h3>
+            <div class="hymn-info">
+                <strong><small>Name</small></strong>
+                <p>{{dateMetadata.matins.name}}</p>
+            </div>
+            <h3>Prime</h3>
+            <div class="hymn-info">
+                <strong><small>Name</small></strong>
+                <p>{{dateMetadata.prime.name}}</p>
+            </div>
+            <h3>Sext</h3>
+            <div class="hymn-info">
+                <strong><small>Name</small></strong>
+                <p>{{dateMetadata.sext.name}}</p>
+            </div>
+            <h3>Terce</h3>
+            <div class="hymn-info">
+                <strong><small>Name</small></strong>
+                <p>{{dateMetadata.terce.name}}</p>
+            </div>
+            <h3>Vespers 1</h3>
+            <div class="hymn-info">
+                <strong><small>Name</small></strong>
+                <p>{{dateMetadata.vespers1.name}}</p>
             </div>
         </div>
     </mat-tab>

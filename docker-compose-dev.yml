@@ -42,7 +42,7 @@ services:
     ports:
       - "2600:8080"
     networks:
-      - publsarum-hymnalic
+      - sarum-hymnal
   create-minio-buckets:
     image: alpine
     volumes:

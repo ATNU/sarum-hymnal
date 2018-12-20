@@ -18,3 +18,12 @@ export class MetadataService {
         return this.http.get('/date/' + date + '?easter=' + easter);
     }
 }
+
+export class DateMetadata {
+    lauds: any;
+    matins: any;
+    prime: any;
+    sext: any;
+    terce: any;
+    vespers: any;
+}

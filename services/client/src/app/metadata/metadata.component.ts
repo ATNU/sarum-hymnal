@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MetadataService } from './metadata.service';
+import { MetadataService, DateMetadata } from './metadata.service';
 import { AppService } from './../app.service';
 import * as Moment from 'moment';
 
@@ -12,7 +12,8 @@ const moment = Moment;
 })
 export class MetadataComponent implements OnInit {
 
-  public metadata: object;
+  public folioMetadata: {};
+  public dateMetadata: DateMetadata;
   private date: string;
   private easter: string;
 
@@ -20,14 +21,20 @@ export class MetadataComponent implements OnInit {
 
   getFolio(folio: string) {
     this.metadataService.getFolio(folio).subscribe(
-      data => { this.metadata = data; },
+      data => {
+        this.folioMetadata = data;
+        this.dateMetadata = null;
+       },
       err => console.error(err)
     );
   }
 
   getDate(date: string, easter: string) {
     this.metadataService.getDate(date, easter).subscribe(
-      data => { console.log(data); /*this.metadata = data;*/ },
+      data => {
+        this.folioMetadata = null;
+        this.dateMetadata = data as DateMetadata;
+       },
       err => console.error(err)
     );
   }

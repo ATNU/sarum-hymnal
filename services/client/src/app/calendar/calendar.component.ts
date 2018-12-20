@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Computus } from 'ng-computus';
+import { Computus } from './computus.service';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 // Depending on whether rollup is used, moment needs to be imported differently.
