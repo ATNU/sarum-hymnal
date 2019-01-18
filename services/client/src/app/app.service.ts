@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { Computus } from './calendar/computus.service';
+import { environment } from '@env/environment';
 import * as Images from '@assets/data/images.json';
 import * as _ from 'lodash';
 
@@ -24,7 +25,7 @@ export class AppService {
         const imagePaths: string[] = [];
 
         _.forEach(Images.default, function(image: string) {
-            imagePaths.push('cantaloupe:2400/iiif/2/' + image + '/info.json');
+            imagePaths.push(environment.serverUrl + '/iiif/2/' + image + '/info.json');
         });
 
         this.imageList = imagePaths;
