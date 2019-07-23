@@ -18,7 +18,7 @@ jobs:
             while read project; do
               if grep -Fxq $project projects.txt; then
                 printf "\nTriggerring build for dir: "$dir
-                curl -s -d build_parameters[CIRCLE_JOB]=${project} https://circleci.com/api/v1.1/project/github/$O/$R/tree/$CIRCLE_BRANCH?circle-token=6d11c88c373aa4e477d664a5fea1f62d7cf7ae74
+                curl -s -d build_parameters[CIRCLE_JOB]=${project} https://circleci.com/api/v1.1/project/github/$O/$R/tree/$CIRCLE_BRANCH?circle-token=c97705f6453e623bb30c89baf895860925f8a3b8
               fi
             done <projects
 
@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - checkout:
-        path: ~/repo
+          path: ~/repo
 
       - run: |
           cd .. && docker build -f server/Dockerfile -t rsenu.azurecr.io/sarum-hymnal:latest -t rsenu.azurecr.io/sarum-hymnal:$CIRCLE_SHA1 .
