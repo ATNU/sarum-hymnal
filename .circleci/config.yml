@@ -1,0 +1,38 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/golang
+    environment:
+      O: "ATNU"
+      R: "sarum-hymnal"
+    steps:
+      - checkout
+      - run:
+          name: Determine which directories have changed
+          command: |
+            git diff --no-commit-id --name-only -r `git log -n 2 --oneline --pretty=format:"%h" | tail -n1` | cut -d/ -f1 | sort -u >  projects
+            printf "Modified directories:\n"
+            cat projects
+            while read project; do
+              if grep -Fxq $project projects.txt; then
+                printf "\nTriggerring build for dir: "$dir
+                curl -s -d build_parameters[CIRCLE_JOB]=${project} https://circleci.com/api/v1.1/project/github/$O/$R/tree/$CIRCLE_BRANCH?circle-token=67652ac1a6d9c0d844f36f98de608c4628dfcb28
+              fi
+            done <projects
+
+  cantaloupe:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo/cantaloupe
+
+    steps:
+      - checkout:
+        path: ~/repo
+
+      - run: |
+          cd .. && docker build -f server/Dockerfile -t rsenu.azurecr.io/soundscapes-of-text-server:latest -t rsenu.azurecr.io/soundscapes-of-text-server:$CIRCLE_SHA1 .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
+          docker push rsenu.azurecr.io/soundscapes-of-text-server:latest
+          docker push rsenu.azurecr.io/soundscapes-of-text-server:$CIRCLE_SHA1
