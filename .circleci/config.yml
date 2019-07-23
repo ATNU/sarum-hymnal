@@ -32,7 +32,7 @@ jobs:
           path: ~/repo
 
       - run: |
-          cd .. && docker build -f server/Dockerfile -t rsenu.azurecr.io/sarum-hymnal:latest -t rsenu.azurecr.io/sarum-hymnal:$CIRCLE_SHA1 .
+          cd ../.. && docker build -f server/Dockerfile -t rsenu.azurecr.io/sarum-hymnal:latest -t rsenu.azurecr.io/sarum-hymnal:$CIRCLE_SHA1 .
           docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
           docker push rsenu.azurecr.io/sarum-hymnal:latest
           docker push rsenu.azurecr.io/sarum-hymnal:$CIRCLE_SHA1
