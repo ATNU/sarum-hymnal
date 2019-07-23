@@ -25,7 +25,7 @@ jobs:
   cantaloupe:
     docker:
       - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo/cantaloupe
+    working_directory: ~/repo/services/cantaloupe
 
     steps:
       - checkout:
