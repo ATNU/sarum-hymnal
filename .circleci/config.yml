@@ -18,7 +18,7 @@ jobs:
             while read project; do
               if grep -Fxq $project projects.txt; then
                 printf "\nTriggerring build for dir: "$dir
-                curl -s -d build_parameters[CIRCLE_JOB]=${project} https://circleci.com/api/v1.1/project/github/$O/$R/tree/$CIRCLE_BRANCH?circle-token=67652ac1a6d9c0d844f36f98de608c4628dfcb28
+                curl -s -d build_parameters[CIRCLE_JOB]=${project} https://circleci.com/api/v1.1/project/github/$O/$R/tree/$CIRCLE_BRANCH?circle-token=6d11c88c373aa4e477d664a5fea1f62d7cf7ae74
               fi
             done <projects
 
