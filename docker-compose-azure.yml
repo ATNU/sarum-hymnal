@@ -1,0 +1,61 @@
+version: "3"
+services:
+  cantaloupe:
+    image: rsenu.azurecr.io/sarum-hymnal-cantaloupe
+    ports:
+      - "2400:8182"
+    environment:
+      - "AWS_DEFAULT_REGION=eu-west-1"
+    networks:
+      - sarum-hymnal
+  minio:
+    image: rsenu.azurecr.io/sarum-hymnal-minio
+    ports:
+     - "2500:9000"
+    environment:
+      - "MINIO_ACCESS_KEY=minio"
+      - "MINIO_SECRET_KEY=minio-1234"
+    networks:
+     - sarum-hymnal
+    command: minio server /data
+  postgres:
+    image: rsenu.azurecr.io/sarum-hymnal-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: PnvaG9LhCb8DXPbp
+    ports:
+     - "2300:5432"
+    networks:
+      - sarum-hymnal
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - "8000:8080"
+#    networks:
+#      - sarum-hymnal
+  create-minio-buckets:
+    image: alpine
+    command: ["sh", "-c", "[ -d /data/minio/atnu-images ] || mkdir -p /data/minio/atnu-images"]
+  server:
+    image: rsenu.azurecr.io/sarum-hymnal-server
+    ports:
+      - "2200:4100"
+    networks:
+      - sarum-hymnal
+  client:
+    image: rsenu.azurecr.io/sarum-hymnal-client
+    build:
+      context: ./
+      dockerfile: services/client/Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - sarum-hymnal
+
+
+networks:
+  sarum-hymnal:
+
+
