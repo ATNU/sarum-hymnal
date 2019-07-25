@@ -2,4 +2,5 @@ cantaloupe
 client
 postgres
 server
+minio
 
