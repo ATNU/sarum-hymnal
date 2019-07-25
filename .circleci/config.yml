@@ -131,6 +131,9 @@ jobs:
 
     steps:
       - checkout
+      - run: $PWD
+      - run: ls
+
 
       - setup_remote_docker:
                 docker_layer_caching:
