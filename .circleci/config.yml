@@ -39,3 +39,36 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
           docker push rsenu.azurecr.io/sarum-hymnal-cantaloupe:latest
           docker push rsenu.azurecr.io/sarum-hymnal-cantaloupe:$CIRCLE_SHA1
+
+  client:
+      docker:
+        - image: circleci/node:8
+      working_directory: ~/repo/services/client
+
+      steps:
+        - checkout:
+            path: ~/repo
+
+        - restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies-
+
+        - run: npm install
+        - run: npm rebuild node-sass
+        - run: npm run build
+
+        - setup_remote_docker:
+                  docker_layer_caching:
+
+        - run: |
+            cd .. && docker build -f services/client/Dockerfile -t rsenu.azurecr.io/sarum-hymnal-client:latest -t rsenu.azurecr.io/sarum-hymnal-client:$CIRCLE_SHA1 .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
+            docker push rsenu.azurecr.io/sarum-hymnal-client:latest
+            docker push rsenu.azurecr.io/sarum-hymnal-client:$CIRCLE_SHA1
+
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies-{{ checksum "package.json" }}
+
