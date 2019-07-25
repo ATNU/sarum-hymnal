@@ -184,4 +184,3 @@ psql -d newdb -f db.sql
 [Here is a link to relational diagram]:https://mermaidjs.github.io/mermaid-live-editor/#/view/eyJjb2RlIjoiZ3JhcGggVERcbiAgICBlbnRyeSAtLSBoYXZlIG9uZSAtLT4gaW1hZ2VcbiAgICBoeW1uIC0tIGhhdmUgbWFueSAtLT4gZW50cnlcbiAgICBwc2FsdGVyIC0tIGhhdmUgbWFueSAtLT4gaHltblxuICAgIHNhbmN0b3JhbCAtLSBoYXZlIG1hbnkgLS0-IGh5bW5cbiAgICBjb21tb24gLS0gaGF2ZSBtYW55IC0tPiBoeW1uXG4gICAgXG4gICAgXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9fQ
 [PostgreSQL]: https://www.postgresql.org/
 [go]: https://golang.org/
-
