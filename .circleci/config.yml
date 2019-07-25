@@ -108,7 +108,7 @@ jobs:
 
   postgres:
       docker:
-        - image: circleci/postgres
+        - image: circleci/openjdk:8-jdk
       working_directory: ~/repo/services/postgres
 
       steps:
