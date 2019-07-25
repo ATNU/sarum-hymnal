@@ -75,7 +75,7 @@ jobs:
   server:
       docker:
         - image: circleci/golang:1.12
-      working_directory: /go/src/github.com/ATNU/sarum-hymnal/server
+      working_directory: /go/src/github.com/ATNU/sarum-hymnal/services/server
   
       steps:
         - checkout:
