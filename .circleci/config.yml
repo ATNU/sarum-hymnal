@@ -127,11 +127,10 @@ jobs:
   minio:
     docker:
       - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo/services/minio
+    working_directory: ~/repo
 
     steps:
-      - checkout:
-          path: ~/repo
+      - checkout
 
       - setup_remote_docker:
                 docker_layer_caching:
