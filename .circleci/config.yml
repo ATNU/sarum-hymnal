@@ -89,10 +89,7 @@ jobs:
         - run: go get github.com/gorilla/mux
         - run: go get github.com/lib/pq
         - run: go get github.com/fsnotify/fsnotify
-        - run: echo $PWD
-        - run: ls
-        - run: cd .. && ls
-  
+
         - run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o app .
   
         - setup_remote_docker:
