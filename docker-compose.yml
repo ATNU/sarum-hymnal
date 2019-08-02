@@ -11,18 +11,6 @@ services:
       - "AWS_DEFAULT_REGION=eu-west-1"
     networks:
       - sarum-hymnal
-  minio:
-    image: minio/minio
-    ports:
-     - "2500:9000"
-    environment:
-      - "MINIO_ACCESS_KEY=minio"
-      - "MINIO_SECRET_KEY=minio-1234"
-    networks:
-     - sarum-hymnal
-    volumes:
-     - ./data/minio:/data
-    command: server /data
   postgres:
     image: atnu-db
     build:
@@ -43,11 +31,6 @@ services:
       - "2600:8080"
     networks:
       - sarum-hymnal
-  create-minio-buckets:
-    image: alpine
-    volumes:
-     - ./data/minio:/data/
-    command: ["sh", "-c", "[ -d /data/atnu-images ] || mkdir -p /data/atnu-images"]
   client:
     image: atnu/sarum-client
     build:
