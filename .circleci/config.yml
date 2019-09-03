@@ -35,10 +35,10 @@ jobs:
                 docker_layer_caching:
 
       - run: |
-          cd ../.. && docker build -f services/cantaloupe/Dockerfile -t rsenu.azurecr.io/sarum-hymnal-cantaloupe:latest -t rsenu.azurecr.io/sarum-hymnal-cantaloupe:$CIRCLE_SHA1 .
-          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
-          docker push rsenu.azurecr.io/sarum-hymnal-cantaloupe:latest
-          docker push rsenu.azurecr.io/sarum-hymnal-cantaloupe:$CIRCLE_SHA1
+          cd ../.. && docker build -f services/cantaloupe/Dockerfile -t rsenuatnu.azurecr.io/sarum-hymnal-cantaloupe:latest -t rsenuatnu.azurecr.io/sarum-hymnal-cantaloupe:$CIRCLE_SHA1 .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
+          docker push rsenuatnu.azurecr.io/sarum-hymnal-cantaloupe:latest
+          docker push rsenuatnu.azurecr.io/sarum-hymnal-cantaloupe:$CIRCLE_SHA1
 
   client:
       docker:
