@@ -62,10 +62,10 @@ jobs:
                   docker_layer_caching:
 
         - run: |
-            cd ../.. && docker build -f services/client/Dockerfile -t rsenu.azurecr.io/sarum-hymnal-client:latest -t rsenu.azurecr.io/sarum-hymnal-client:$CIRCLE_SHA1 .
-            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
-            docker push rsenu.azurecr.io/sarum-hymnal-client:latest
-            docker push rsenu.azurecr.io/sarum-hymnal-client:$CIRCLE_SHA1
+            cd ../.. && docker build -f services/client/Dockerfile -t rsenuatnu.azurecr.io/sarum-hymnal-client:latest -t rsenuatnu.azurecr.io/sarum-hymnal-client:$CIRCLE_SHA1 .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
+            docker push rsenuatnu.azurecr.io/sarum-hymnal-client:latest
+            docker push rsenuatnu.azurecr.io/sarum-hymnal-client:$CIRCLE_SHA1
 
         - save_cache:
             paths:
@@ -96,10 +96,10 @@ jobs:
                   docker_layer_caching:
   
         - run: |
-            cd ../.. && docker build -f services/server/Dockerfile -t rsenu.azurecr.io/sarum-hymnal-server:latest -t rsenu.azurecr.io/sarum-hymnal-server:$CIRCLE_SHA1 .
-            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
-            docker push rsenu.azurecr.io/sarum-hymnal-server:latest
-            docker push rsenu.azurecr.io/sarum-hymnal-server:$CIRCLE_SHA1
+            cd ../.. && docker build -f services/server/Dockerfile -t rsenuatnu.azurecr.io/sarum-hymnal-server:latest -t rsenuatnu.azurecr.io/sarum-hymnal-server:$CIRCLE_SHA1 .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
+            docker push rsenuatnu.azurecr.io/sarum-hymnal-server:latest
+            docker push rsenuatnu.azurecr.io/sarum-hymnal-server:$CIRCLE_SHA1
   
         - save_cache:
             key: v1-pkg-cache
@@ -119,10 +119,10 @@ jobs:
                   docker_layer_caching:
 
         - run: |
-            cd ../.. && docker build -f services/postgres/Dockerfile -t rsenu.azurecr.io/sarum-hymnal-postgres:latest -t rsenu.azurecr.io/sarum-hymnal-postgres:$CIRCLE_SHA1 .
-            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
-            docker push rsenu.azurecr.io/sarum-hymnal-postgres:latest
-            docker push rsenu.azurecr.io/sarum-hymnal-postgres:$CIRCLE_SHA1
+            cd ../.. && docker build -f services/postgres/Dockerfile -t rsenuatnu.azurecr.io/sarum-hymnal-postgres:latest -t rsenuatnu.azurecr.io/sarum-hymnal-postgres:$CIRCLE_SHA1 .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
+            docker push rsenuatnu.azurecr.io/sarum-hymnal-postgres:latest
+            docker push rsenuatnu.azurecr.io/sarum-hymnal-postgres:$CIRCLE_SHA1
 
   minio:
     docker:
@@ -139,7 +139,7 @@ jobs:
                 docker_layer_caching:
 
       - run: |
-          cd ../.. && docker build -f services/minio/Dockerfile -t rsenu.azurecr.io/sarum-hymnal-minio:latest -t rsenu.azurecr.io/sarum-hymnal-minio:$CIRCLE_SHA1 .
-          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
-          docker push rsenu.azurecr.io/sarum-hymnal-minio:latest
-          docker push rsenu.azurecr.io/sarum-hymnal-minio:$CIRCLE_SHA1
+          cd ../.. && docker build -f services/minio/Dockerfile -t rsenuatnu.azurecr.io/sarum-hymnal-minio:latest -t rsenuatnu.azurecr.io/sarum-hymnal-minio:$CIRCLE_SHA1 .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenuatnu.azurecr.io
+          docker push rsenuatnu.azurecr.io/sarum-hymnal-minio:latest
+          docker push rsenuatnu.azurecr.io/sarum-hymnal-minio:$CIRCLE_SHA1
