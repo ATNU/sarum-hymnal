@@ -7,3 +7,4 @@ docker run -it --rm --name cantaloupeBuild -v "$PWD/.cache/cantaloupe":/usr/src/
 mv .cache/cantaloupe/target/cantaloupe-4.0-SNAPSHOT.war services/cantaloupe/cantaloupe.war
 rm -rf .cache/cantaloupe
 
+
