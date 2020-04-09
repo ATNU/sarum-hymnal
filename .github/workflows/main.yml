@@ -1,0 +1,50 @@
+# This workflow will do a clean install of python dependencies, run tests, build the docker images and deploy to Azure Container Instances
+
+name: Build & Deploy
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-client:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Publish Client to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        dockerfile: client/Dockerfile
+        registry: atnuregistry.azurecr.io
+        name: atnuregistry.azurecr.io/sarum-hymnal-client
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+        tag_semver: true
+    - name: Publish Server to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        dockerfile: server/Dockerfile
+        registry: atnuregistry.azurecr.io
+        name: atnuregistry.azurecr.io/sarum-hymnal-server
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+        tag_semver: true
+    - name: Publish Cantaloupe to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        dockerfile: cantaloupe/Dockerfile
+        registry: atnuregistry.azurecr.io
+        name: atnuregistry.azurecr.io/sarum-hymnal-cantaloupe
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+        tag_semver: true
+    - name: Publish Postgres to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        dockerfile: postgres/Dockerfile
+        registry: atnuregistry.azurecr.io
+        name: atnuregistry.azurecr.io/sarum-hymnal-postgres
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+        tag_semver: true
