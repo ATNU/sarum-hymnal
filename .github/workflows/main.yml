@@ -15,7 +15,7 @@ jobs:
     - name: Publish Client to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        dockerfile: client/Dockerfile
+        dockerfile: services/client/Dockerfile
         registry: atnuregistry.azurecr.io
         name: atnuregistry.azurecr.io/sarum-hymnal-client
         username: ${{ secrets.REGISTRY_USERNAME }}
@@ -24,7 +24,7 @@ jobs:
     - name: Publish Server to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        dockerfile: server/Dockerfile
+        dockerfile: services/server/Dockerfile
         registry: atnuregistry.azurecr.io
         name: atnuregistry.azurecr.io/sarum-hymnal-server
         username: ${{ secrets.REGISTRY_USERNAME }}
@@ -33,7 +33,7 @@ jobs:
     - name: Publish Cantaloupe to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        dockerfile: cantaloupe/Dockerfile
+        dockerfile: services/cantaloupe/Dockerfile
         registry: atnuregistry.azurecr.io
         name: atnuregistry.azurecr.io/sarum-hymnal-cantaloupe
         username: ${{ secrets.REGISTRY_USERNAME }}
@@ -42,7 +42,7 @@ jobs:
     - name: Publish Postgres to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        dockerfile: postgres/Dockerfile
+        dockerfile: services/postgres/Dockerfile
         registry: atnuregistry.azurecr.io
         name: atnuregistry.azurecr.io/sarum-hymnal-postgres
         username: ${{ secrets.REGISTRY_USERNAME }}
