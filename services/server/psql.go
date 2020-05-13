@@ -76,7 +76,7 @@ func QueryDB(db *sql.DB, q string, args ...interface{}) (*sql.Rows, error) {
 // connEnv helper function to build Postgres connection string from ENV variable
 func connEnv() string {
 	val := os.Getenv("DB_CONNECTION_STRING")
-	log.Println("DB_CONNECTION_STRING" + val)
+	log.Println("DB_CONNECTION_STRING: " + val)
 	// If env variable is empty fallback to config file
 	if val == "" {
 		val = connConfig()
