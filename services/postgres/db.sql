@@ -171,7 +171,7 @@ ALTER TABLE ONLY sarumhymnal.sanctoral ALTER COLUMN "ID" SET DEFAULT nextval('sa
 --
 
 COPY sarumhymnal.common (catagory, abbrev, vespers1, vespers1_melody, matins, matins_melody, lauds, lauds_melody, vespers2, vespers2_melody) FROM stdin;
-﻿Apostle(s)	Ap	Annue Christe	DAB.G.AB.C.BA.D.C.BA	Annue Christe	DAB.G.AB.C.BA.D.C.BA	Exultet celum laudibus	G.GCCB.AG.AF.AC.CB.AG.FG.G	Exultet celum laudibus	G.GCCB.AG.AF.AC.CB.AG.FG.G
+Apostle(s)	Ap	Annue Christe	DAB.G.AB.C.BA.D.C.BA	Annue Christe	DAB.G.AB.C.BA.D.C.BA	Exultet celum laudibus	G.GCCB.AG.AF.AC.CB.AG.FG.G	Exultet celum laudibus	G.GCCB.AG.AF.AC.CB.AG.FG.G
 Martyr, Per annum	Ma	Martyr dei	CD.DAB.A.AG.GA.G.GF	Martyr dei	CD.DAB.A.AG.GA.G.GF	Deus tuorum militum	CD.DAB.A.AG.GA.G.GF	Deus tuorum militum	CD.DAB.A.AG.GA.G.GF
 Martyrs, Per annum	Mas	Sanctorum meritis	G.B.C.DE.C.D	Sanctorum meritis	D.E.F.G.A.GA	Rex gloriose martyrum	CD.DAB.A.AG.GA.G.GF	Rex gloriose martyrum	CD.DAB.A.AG.GA.G.GF
 Confessor	Co	Iste confessor	DF.D.D.C.D	Iste confessor	GAGG.E.F.ED.DE	Jesu redemptor omnium	CD.DAB.A.AG.GA.G.GF	Jesu redemptor omnium	CD.DAB.A.AG.GA.G.GF
@@ -184,7 +184,7 @@ Virgin	Vi	Virginis proles	DF.D.D.C.D	Virginis proles	GAGG.E.F.ED.DE	Jesu corona 
 --
 
 COPY sarumhymnal.entry (image, folio, stave, hymn, first_line, melody, cycle) FROM stdin;
-﻿001r	001r	4-9	Conditor alme syderum	F3	E.C.E.G.A.A.F.G	Temporal
+001r	001r	4-9	Conditor alme syderum	F3	E.C.E.G.A.A.F.G	Temporal
 001v	001v	1-7	Conditor alme syderum	F3	E.C.E.G.A.A.F.G	Temporal
 001v	001v	8-9	Verbum supernum	C4	E.C.E.G.A.B.A.A	Temporal
 002r	002r	1-9	Verbum supernum	C4	E.C.E.G.A.B.A.A	Temporal
@@ -649,7 +649,7 @@ COPY sarumhymnal.entry (image, folio, stave, hymn, first_line, melody, cycle) FR
 --
 
 COPY sarumhymnal.hymn (name) FROM stdin;
-﻿Primo dierum omnium
+Primo dierum omnium
 Somno refectis
 Consors paterne
 Rerum creator
@@ -849,7 +849,7 @@ Mathee sancte bino
 --
 
 COPY sarumhymnal.image (filename) FROM stdin;
-﻿001r
+001r
 001v
 002r
 002v
@@ -922,7 +922,7 @@ COPY sarumhymnal.image (filename) FROM stdin;
 --
 
 COPY sarumhymnal.psalter (matins, lauds, prime, terce, sext, "none", vespers, "desc") FROM stdin;
-﻿Primo dierum omnium	Eterne rerum conditor	Jam lucis	Nunc sancte nobis	Rector potens	Rerum deus tenax	Lucis creator optime	SUNDAY
+Primo dierum omnium	Eterne rerum conditor	Jam lucis	Nunc sancte nobis	Rector potens	Rerum deus tenax	Lucis creator optime	SUNDAY
 Somno refectis	Splendor paterne	Jam lucis	Nunc sancte nobis	Rector potens	Rerum deus tenax	Immense celi	Monday
 Consors paterne	Ales diei nuntius	Jam lucis	Nunc sancte nobis	Rector potens	Rerum deus tenax	Tellurus ingeris	Tuesday
 Rerum creator	Nox et tenebrae	Jam lucis	Nunc sancte nobis	Rector potens	Rerum deus tenax	Celi deus sanctissime	Wednesday
