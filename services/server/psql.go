@@ -4,10 +4,12 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
+	"os"
+	"time"
+
 	_ "github.com/lib/pq" //Drivers required for postgres
 	"github.com/spf13/viper"
-	"log"
-	"time"
 )
 
 // ConnDB initialises a new connection to Postgres
@@ -25,7 +27,7 @@ func ConnDB(n int) (*sql.DB, error) {
 	}
 
 	log.Println("Attempting to connect to postgres")
-	db, err := sql.Open("postgres", connName())
+	db, err := sql.Open("postgres", connEnv())
 	if err != nil {
 		log.Println(err)
 		time.Sleep(time.Duration(5*n) * time.Second)
@@ -71,8 +73,19 @@ func QueryDB(db *sql.DB, q string, args ...interface{}) (*sql.Rows, error) {
 	return db.Query(q, args...)
 }
 
-// connName helper function to build Postgres connection string
-func connName() string {
+// connEnv helper function to build Postgres connection string from ENV variable
+func connEnv() string {
+	val := os.Getenv("DB_CONNECTION_STRING")
+	log.Println("DB_CONNECTION_STRING" + val)
+	// If env variable is empty fallback to config file
+	if val == "" {
+		val = connConfig()
+	}
+	return val
+}
+
+// connName helper function to build Postgres connection string config file
+func connConfig() string {
 	return fmt.Sprintf("host=%s port=%s sslmode=%s user=%s password=%s dbname=%s",
 		viper.GetString("postgres.conn.host"), viper.GetString("postgres.conn.port"), viper.GetString("postgres.conn.sslmode"),
 		viper.GetString("postgres.account.user"), viper.GetString("postgres.account.password"),
