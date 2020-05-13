@@ -9,5 +9,5 @@ RUN npm rebuild node-sass
 RUN npm run build
 
 FROM nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /usr/local/app/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /usr/local/app/dist /usr/share/nginx/html
