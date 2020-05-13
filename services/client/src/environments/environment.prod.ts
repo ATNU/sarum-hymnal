@@ -5,7 +5,7 @@ export const environment = {
   production: true,
   version: env.npm_package_version,
   apiUrl: 'https://atnu-sarum-hymnal-server.azurewebsites.net',
-  imageServerUrl: 'https://atnu-sarum-hymnal-server.azurewebsites.net',
+  imageServerUrl: 'https://atnu-sarum-hymnal-cantaloupe.azurewebsites.net',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',
