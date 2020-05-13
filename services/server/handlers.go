@@ -49,6 +49,7 @@ func HandleDate(w http.ResponseWriter, r *http.Request) {
 					w.WriteHeader(http.StatusInternalServerError)
 					return
 				}
+				db.Close()
 				w.Header().Set("Content-Type", "application/json")
 				en := json.NewEncoder(w)
 				en.Encode(h)
@@ -169,6 +170,7 @@ func HandleFolio(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("500 - Something bad happened!"))
 		return
 	}
+	db.Close()
 	w.Header().Set("Content-Type", "application/json")
 	en := json.NewEncoder(w)
 	en.Encode(h)

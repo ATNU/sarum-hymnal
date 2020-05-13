@@ -70,6 +70,7 @@ func QueryDB(db *sql.DB, q string, args ...interface{}) (*sql.Rows, error) {
 			return nil, err
 		}
 	}
+	defer db.Close()
 	return db.Query(q, args...)
 }
 
