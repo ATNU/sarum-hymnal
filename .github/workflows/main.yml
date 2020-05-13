@@ -30,12 +30,3 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
         tag_semver: true
-    - name: Publish Cantaloupe to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        dockerfile: services/cantaloupe/Dockerfile
-        registry: atnuregistry.azurecr.io
-        name: atnuregistry.azurecr.io/sarum-hymnal-cantaloupe
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-        tag_semver: true
