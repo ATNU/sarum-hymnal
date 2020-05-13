@@ -4,7 +4,8 @@ import env from './.env';
 export const environment = {
   production: true,
   version: env.npm_package_version,
-  serverUrl: 'https://atnu-sarum-hymnal-server.azurewebsites.net',
+  apiUrl: 'https://atnu-sarum-hymnal-server.azurewebsites.net',
+  imageServerUrl: 'https://atnu-sarum-hymnal-server.azurewebsites.net',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',

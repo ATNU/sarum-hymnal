@@ -25,7 +25,7 @@ export class AppService {
         const imagePaths: string[] = [];
 
         _.forEach(Images.default, function(image: string) {
-            imagePaths.push(environment.serverUrl + '/iiif/2/' + image + '/info.json');
+            imagePaths.push(environment.imageServerUrl + '/iiif/2/' + image + '/info.json');
         });
 
         this.imageList = imagePaths;
